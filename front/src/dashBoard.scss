@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nunito Sans", sans-serif;
+    --primaryColor: #41a58d;
+    --secondColor: #c5fcef;
+    --accentColor: #0ce9b5;
+    --textColor: #141f1c;
+    --bgColor: #f4f5fb;
+    --var-dark-gray: #9fa3a6;
+
+    --bold-font: 21px;
+    --demi-bold: 16px;
+    --medium-font: 14px;
+    --regular-font: 12px;
+}
+body {
+    background-color: var(--bgColor);
+}
+.side-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 200px;
+    background-color: white;
+
+    .side-bar__logo {
+        display: flex;
+        justify-content: center;
+        margin-block: 30px;
+        padding-bottom: 20px;
+        max-width: 100%;
+        border-bottom: 1px solid var(--var-dark-gray);
+
+        .side-bar__logo-img {
+            width: 80%;
+        }
+    }
+    .side-bar__list {
+        list-style: none;
+        display: flex;
+        row-gap: 2px;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .side-bar__list-item {
+            width: 100%;
+            // display: flex;
+            // justify-content: flex-start;
+            font-size: var(--medium-font);
+            font-weight: 600;
+
+            a {
+                display: flex;
+                align-items: center;
+                column-gap: 3px;
+                width: 100%;
+                padding: 10px;
+                color: black;
+                text-decoration: none;
+
+                .side-bar__list-svg {
+                    width: var(--bold-font);
+                    // height: var(--bold-font);
+                }
+                &:visited {
+                    text-decoration: none;
+                }
+            }
+            &:hover {
+                background-color: var(--accentColor);
+                a {
+                    color: white;
+                }
+                path {
+                    fill: white;
+                }
+            }
+        }
+    }
+} 
