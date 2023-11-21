@@ -1,0 +1,1 @@
+const hola : number = 1

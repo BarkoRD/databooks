@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/crearCliente.css" />
     <title>Capital Wise</title>
-    <link rel="stylesheet" href="./styles/dashBoard.css">
-    <link rel="stylesheet" href="./styles/clientes.css" />
-</head>
-<body>
-    <nav class="side-bar">
-        <a class="side-bar__logo" href="#">
-          <img class="side-bar__logo-img" src="./media/logo.webp" alt="" />
-        </a>
-        <ul class="side-bar__list">
-          <li class="side-bar__list-item">
-            <a href="index.html"><svg class="side-bar__list-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 26h16V6H6v20zm0 16h16V30H6v12zm20 0h16V22H26v20zm0-36v12h16V6H26z" fill="black"
-                  class="fill-000000"></path>
-              </svg>Dashboard</a>
-          </li>
-          <li class="side-bar__list-item">
-            <a href="crearClientes.html"><svg class="side-bar__list-svg" viewBox="0 0 48 48">
-                <path d="M6 26h16V6H6v20zm0 16h16V30H6v12zm20 0h16V22H26v20zm0-36v12h16V6H26z" fill="black"></path>
-              </svg>Gestión</a>
-          </li>
-          <li class="side-bar__list-item">
-            <a href="#"><svg class="side-bar__list-svg" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 26h16V6H6v20zm0 16h16V30H6v12zm20 0h16V22H26v20zm0-36v12h16V6H26z" fill="black"
-                  class="fill-000000"></path>
-              </svg>Dashboard</a>
-          </li>
-        </ul>
-      </nav>
-</body>
+  </head>
+  <body>
+    <nav class="nav-bar">
+      <a href="./index.html"
+        ><img
+          class="nav-bar__logo"
+          src="./media/logo.webp"
+          alt="Wise investors logo"
+      /></a>
+      <ul class="nav-bar__menu">
+        <li class="nav-bar__menu-item">
+          <a href="./clientes.html">Clientes</a>
+        </li>
+        <li class="nav-bar__menu-item"><a href="#">Proveedores</a></li>
+        <li class="nav-bar__menu-item"><a href="#">articulos</a></li>
+        <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
+      </ul>
+    </nav>
+    <main>
+        <h1 class="title">Agrega un cliente</h1>
+        <form class="new-client-form" action="POST" name="newClient">
+            <label class="new-client-form__label" for="razonSocial">Razón social</label>
+            <input class="new-client-form__input" type="text" name="razonSocial" id="razonSocial" />
+            <label class="new-client-form__label" for="nombre">Nombre</label>
+            <input class="new-client-form__input" type="text" name="nombre" id="nombre" />
+            <label class="new-client-form__label" for="telefono">Telefono</label>
+            <input class="new-client-form__input" type="text" name="telefono" id="telefono" />
+            <label class="new-client-form__label" for="correo">Correo</label>
+            <input class="new-client-form__input" type="text" name="correo" id="correo" />
+            <input class="new-client-form__button" type="submit" value="Agregar cliente"/>
+        </form>
+    </main>
+
+    <script src="./javascript/main.js"></script>
+  </body>
 </html>

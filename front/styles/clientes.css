@@ -1,17 +1,65 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Nunito Sans", sans-serif;
-  --primaryColor: #41A58D;
-  --secondColor: #c5fcef;
-  --accentColor: #0ce9b5;
-  --textColor: #141f1c;
-  --bgColor: #F4F5FB;
-  --var-dark-gray: #9fa3a6;
-  --bold-font: 21px;
-  --demi-bold: 16px;
-  --medium-font: 14px;
-  --regular-font: 12px;
+.clients-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding-inline: 3vw;
+  padding-block: 3vh;
+}
+.clients-container .clients-container__title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primaryColor);
+}
+.clients-container .create-client {
+  display: flex;
+  justify-content: space-between;
+}
+.clients-container .create-client .create-client__button {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primaryColor);
+  color: var(--bgColor);
+  font-size: var(--medium-font);
+  font-weight: var(--demi-bold);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.clients-container .create-client .create-client__button:hover {
+  background-color: var(--accentColor);
+}
+.clients-container .table {
+  width: 100%;
+  border: 1px solid var(--primaryColor);
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.clients-container .table .table__head {
+  background-color: var(--primaryColor);
+  color: var(--bgColor);
+  font-size: var(--medium-font);
+  font-weight: var(--demi-bold);
+  cursor: default;
+  user-select: none;
+}
+.clients-container .table .table__head .table__head-title {
+  padding: 0.5rem 1rem;
+  text-align: left;
+}
+.clients-container .table .table__row {
+  padding: 0.5rem 1rem;
+  font-size: var(--medium-font);
+  cursor: default;
+  transition: background-color 0.3s;
+}
+.clients-container .table .table__row:nth-child(even) {
+  background-color: var(--bgColor);
+}
+.clients-container .table .table__row:hover {
+  background-color: var(--dark-gray);
+}
+.clients-container .table .table__row .table__row-data {
+  padding: 0.5rem 1rem;
 }/*# sourceMappingURL=clientes.css.map */
