@@ -21,6 +21,7 @@
             <li class="nav-bar__menu-item"><a href="#">Proveedores</a></li>
             <li class="nav-bar__menu-item"><a href="#">articulos</a></li>
             <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
+            <li class="nav-bar__menu-item"><a href="./logout">Cerrar sesión</a></li>
         </ul>
     </nav>
     <section class="clients-container">
@@ -40,21 +41,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="table__row">
-                    <td class="table__row-data">984894385</td>
-                    <td class="table__row-data">Pepe Veráz</td>
-                    <td class="table__row-data">849-806-5000</td>
-                    <td class="table__row-data">pepeveras1234@gmail.com</td>
-                    <!-- <td></td> -->
-                </tr>
-                <% clientes.forEach((cliente)=>{ %>
-                    <tr class="table__row">
-                        <td class="table__row-data"><%=cliente.razon_social%></td>
-                        <td class="table__row-data"><%=cliente.client_name%></td>
-                        <td class="table__row-data"><%=cliente.client_phone%></td>
-                        <td class="table__row-data"><%=cliente.client_email%></td>
-                    </tr>
-                <% }) %>
+                    <% clientes.forEach((cliente)=>{ %>
+                        <tr class="table__row">
+                            <td class="table__row-data"><%=cliente.razon_social%></td>
+                            <td class="table__row-data"><%=cliente.client_name%></td>
+                            <td class="table__row-data"><%=cliente.client_phone%></td>
+                            <td class="table__row-data"><%=cliente.client_email%></td>
+                        </tr>
+                    <% }) %>
             </tbody>
         </table>
     </section>

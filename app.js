@@ -46,7 +46,9 @@ app.get('/index', (req, res) => {
 let id = 0
 
 app.get('/clientes', async (req, res) => {
+  console.log(id)
   const [clientes] = await pool.promise().query('SELECT * FROM clients WHERE user_id = ?', id)
+  console.log({ clientes })
   req.session.loggedin ? res.render('clientes', { clientes }) : res.redirect('login')
 })
 
@@ -60,6 +62,12 @@ app.get('/login', (req, res) => {
 
 app.get('/register', (req, res) => {
   req.session.loggedin ? res.redirect('index') : res.render('register', { error: '' })
+})
+
+app.get('/logout', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('login')
+  })
 })
 
 // MANEJO DE SOLICITUDES POST
