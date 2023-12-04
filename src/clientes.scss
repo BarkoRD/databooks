@@ -5,7 +5,7 @@
     padding-inline: 3vw;
     padding-block: 3vh;
 
-    .clients-container__title{
+    .clients-container__title {
         font-size: 2rem;
         font-weight: 600;
         color: var(--primaryColor);
@@ -14,7 +14,7 @@
     .create-client {
         display: flex;
         justify-content: space-between;
-        
+
         .create-client__button {
             text-decoration: none;
             padding: 0.5rem 1rem;
@@ -33,12 +33,11 @@
         }
     }
 
-
-
     .table {
         width: 100%;
         border: 1px solid var(--primaryColor);
-        border-radius: 5px;
+        border-radius: 8px;
+        padding: 2px;
         overflow: hidden;
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 
@@ -58,7 +57,7 @@
         .table__row {
             padding: 0.5rem 1rem;
             font-size: var(--medium-font);
-            cursor: default;
+            cursor: text;
             transition: background-color 0.3s;
 
             &:nth-child(even) {
@@ -69,6 +68,7 @@
             }
             .table__row-data {
                 padding: 0.5rem 1rem;
+                border: .5px solid #55555550;
             }
         }
     }

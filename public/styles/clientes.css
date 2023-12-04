@@ -32,7 +32,8 @@
 .clients-container .table {
   width: 100%;
   border: 1px solid var(--primaryColor);
-  border-radius: 5px;
+  border-radius: 8px;
+  padding: 2px;
   overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
@@ -51,7 +52,7 @@
 .clients-container .table .table__row {
   padding: 0.5rem 1rem;
   font-size: var(--medium-font);
-  cursor: default;
+  cursor: text;
   transition: background-color 0.3s;
 }
 .clients-container .table .table__row:nth-child(even) {
@@ -62,4 +63,5 @@
 }
 .clients-container .table .table__row .table__row-data {
   padding: 0.5rem 1rem;
+  border: 0.5px solid rgba(85, 85, 85, 0.3137254902);
 }/*# sourceMappingURL=clientes.css.map */
