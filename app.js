@@ -15,9 +15,6 @@ const app = express()
 const server = http.createServer(app)
 
 app.set('view engine', 'ejs')
-
-// permite usar cookies en tu pagina
-// aunque no se estan usando >:(
 app.use(cookieParser('elpepe'))
 
 const sessionMiddleware = session({
@@ -26,57 +23,28 @@ const sessionMiddleware = session({
   saveUninitialized: true
 })
 app.use(sessionMiddleware)
-
 app.use(express.urlencoded({ extended: true }))
-
 app.use(express.static(path.join(__dirname, 'public')))
 
-// una sesion es el tiempo de una persona en tu pagina
-// persona entra == crea una sesion
-
 // MANEJO DE SOLICITUDES GET
-app.get('/', (req, res) => {
-  req.session.loggedin ? res.redirect('index') : res.redirect('login')
+
+// /^\/(index|crearClientes|crearProveedores)$/  -->  regex para index, crearClientes y crearProveedores
+app.get(['/', '/index', '/crearClientes', '/crearProveedores'], (req, res) => {
+  req.session.loggedin ? res.render(req.url.slice(1)) : res.redirect('login')
 })
 
-app.get('/index', (req, res) => {
-  req.session.loggedin ? res.render('index') : res.redirect('login')
+// Clientes, Proveedores GET
+
+app.get(['/clientes', '/proveedores'], async (req, res) => {
+  const select = req.url === '/clientes' ? 'clientes' : 'proveedores'
+  const id = req.session.user_id
+  const [tableitems] = await pool.promise().query(`SELECT * FROM ${select} WHERE user_id = ?`, id)
+  req.session.loggedin ? res.render(`${select}`, { tableitems }) : res.redirect('login')
+  console.log(tableitems)
 })
 
-let id = 0
-
-// Clientes
-
-app.get('/clientes', async (req, res) => {
-  console.log(id)
-  const [clientes] = await pool.promise().query('SELECT * FROM clients WHERE user_id = ?', id)
-  console.log({ clientes })
-  req.session.loggedin ? res.render('clientes', { clientes }) : res.redirect('login')
-})
-
-app.get('/crearClientes', (req, res) => {
-  req.session.loggedin ? res.render('crearClientes') : res.redirect('login')
-})
-
-// Proveedores
-
-app.get('/proveedores', async (req, res) => {
-  console.log(id)
-  const [proveedores] = await pool.promise().query('SELECT * FROM suppliers WHERE user_id = ?', id)
-  console.log({ proveedores })
-  req.session.loggedin ? res.render('proveedores', { proveedores }) : res.redirect('login')
-})
-
-app.get('/crearProveedores', (req, res) => {
-  req.session.loggedin ? res.render('crearProveedores') : res.redirect('login')
-})
-
-app.get('/login', (req, res) => {
-  req.session.loggedin ? res.redirect('index') : res.render('login', { error: '' })
-})
-
-app.get('/register', (req, res) => {
-  req.session.loggedin ? res.redirect('index') : res.render('register', { error: '' })
+app.get(['/login', '/register'], (req, res) => {
+  req.session.loggedin ? res.redirect('index') : res.render(req.url.slice(1), { error: '' })
 })
 
 app.get('/logout', (req, res) => {
@@ -89,23 +57,22 @@ app.get('/logout', (req, res) => {
 
 app.post('/register', async (req, res) => {
   const newData = req.body
-  const [data] = await pool.promise().query('SELECT * FROM users WHERE email = ?', [newData.email])
+  const [data] = await pool.promise().query('SELECT * FROM usuarios WHERE email = ?', [newData.email])
   if (data.length > 0) {
     const error = 'Este correo ya esta registrado'
     res.render('register', { error })
   } else {
-    await pool.promise().query('INSERT INTO users SET ?', newData)
+    await pool.promise().query('INSERT INTO usuarios SET ?', newData)
     res.redirect('/login')
   }
 })
 
 app.post('/login', async (req, res) => {
   const newData = req.body
-  const [data] = await pool.promise().query('SELECT * FROM users WHERE email = ? AND user_pass = ?', [newData.email, newData.user_pass])
+  const [data] = await pool.promise().query('SELECT * FROM usuarios WHERE email = ? AND user_pass = ?', [newData.email, newData.user_pass])
   if (data.length > 0) {
     req.session.loggedin = true
     req.session.user_id = data[0].user_id
-    id = data[0].user_id
     res.redirect('index')
   } else {
     const error = 'Correo o contraseña incorrectos'
@@ -113,27 +80,19 @@ app.post('/login', async (req, res) => {
   }
 })
 
-app.get(['/clientes', '/proveedores'], async (req, res) => {
-  const text = req.url === '/clientes' ? 'Clientes' : 'Proveedores'
-  const id = req.session.user_id
-  const [tableitems] = await pool.promise().query(`SELECT * FROM ${text} WHERE user_id = ?`, id)
-  // console.log({ clientes })
-  req.session.loggedin ? res.render(`${text}`, { tableitems }) : res.redirect('login')
-})
-
-/* app.post(['/clientes', '/proveedores'], async (req, res) => {
+app.post(['/crearClientes', '/crearProveedores'], async (req, res) => {
   const newData = req.body
+  const id = req.session.user_id
   newData.user_id = id
-  const [data] = await pool.promise().query('SELECT * FROM clients WHERE client_rnc = ? OR client_email = ?', [newData.rnc, newData.correo])
-  console.log(data)
+  const select = req.url === '/crearClientes' ? 'clientes' : 'proveedores'
+  const [data] = await pool.promise().query(`SELECT * FROM ${select} WHERE rnc = ? OR email = ?`, [newData.rnc, newData.email])
   if (data.length > 0) {
-    console.log('ya existe')
-    res.render('crearClientes', 'crearProovedores')
+    res.render(req.url.slice(1))
   } else {
-    await pool.promise().query('INSERT INTO clients SET ?', newData)
-    res.redirect('clientes', 'proveedores')
+    await pool.promise().query(`INSERT INTO ${select} SET ?`, newData)
+    res.redirect(`${select}`)
   }
-}) */
+})
 
 server.listen(process.env.PORT || 3000, () => {
   console.log('dale ahi manito --> http://localhost:3000')

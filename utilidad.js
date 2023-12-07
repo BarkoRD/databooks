@@ -1,75 +1,31 @@
-// const cookieParser = require('cookie-parser')
-
-// const session = require('express-session')
-
-// app.use(express.urlencoded({ extended: true }))
-
-// app.use(cookieParser('suricata'))
-
-// const sessionMiddleware = session({
-
-//     secret: 'gatocalvo',
-
-//     resave: true,
-
-//     saveUninitialized: true
-
-// });
-
-// app.use(sessionMiddleware);
-
-// app.post('/register', async (req, res) => {
-
-//     const { name, accesscode } = req.body;
-
-//       const newdata = { name, accesscode }
-
-//       const [data] = await pool.promise().query('SELECT * FROM chatters WHERE accesscode = ?', [accesscode])
-
-//    if (data.length > 0) {
-
-//           res.render('register')
-
-//       } else {
-
-//           await pool.promise().query('INSERT INTO chatters SET ?', newdata)
-
-//           res.redirect('/login')
-
-//       }
-
-//   })
-
-// app.post('/login', async (req, res) => {
-
-//     const [data] = await pool.promise().query('SELECT * FROM chatters WHERE accesscode = ?', [accesscode]);
-
-//     if (data.length > 0) {
-
-//     req.session.loggedin = true;
-
-//        res.redirect('/index');
-
-//    });
-
-// app.get('/login', async (req, res) => {
-
-//     if (req.session.loggedin) {
-
-//   res.render('index');
-
-//   }
-
-// res.render('login');
-
+// app.get('/', (req, res) => {
+//   req.session.loggedin ? res.redirect('index') : res.redirect('login')
 // })
 
-// const express = require('express')
+// app.get('/login', (req, res) => {
+//   req.session.loggedin ? res.redirect('index') : res.render('login', { error: '' })
+// })
 
-// const http = require('http')
+// app.get('/register', (req, res) => {
+//   req.session.loggedin ? res.redirect('index') : res.render('register', { error: '' })
+// })
 
-// app.set('view engine', 'ejs');
+// app.get('/clientes', async (req, res) => {
+//   const id = req.session.user_id
+//   const [clientes] = await pool.promise().query('SELECT * FROM clientes WHERE user_id = ?', id)
+//   req.session.loggedin ? res.render('clientes', { clientes }) : res.redirect('login')
+// })
 
-// si se reinicia el servidor la unica forma de el servidor dar un dato NUEVO al usuario es enviando
+// app.get('/crearClientes', (req, res) => {
+//   req.session.loggedin ? res.render('crearClientes') : res.redirect('login')
+// })
 
-// ese dato mediante motores de plantilla por ejemplo ejs o express-handlebars
+// app.get('/proveedores', async (req, res) => {
+//   const id = req.session.user_id
+//   const [proveedores] = await pool.promise().query('SELECT * FROM proveedores WHERE user_id = ?', id)
+//   req.session.loggedin ? res.render('proveedores', { proveedores }) : res.redirect('login')
+// })
+
+// app.get('/crearProveedores', (req, res) => {
+//   req.session.loggedin ? res.render('crearProveedores') : res.redirect('login')
+// })

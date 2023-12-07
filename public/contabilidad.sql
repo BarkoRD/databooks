@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 06, 2023 at 10:06 PM
+-- Generation Time: Dec 07, 2023 at 07:58 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -24,30 +24,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clients`
+-- Table structure for table `clientes`
 --
 
-DROP TABLE IF EXISTS `clients`;
-CREATE TABLE IF NOT EXISTS `clients` (
-  `client_rnc` varchar(9) NOT NULL CHECK,
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE IF NOT EXISTS `clientes` (
+  `rnc` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `client_name` varchar(100) NOT NULL,
   `razon_social` varchar(50) NOT NULL,
   `client_phone` varchar(15) DEFAULT NULL,
-  `client_email` varchar(50) DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `client_address` varchar(100) DEFAULT NULL,
   `user_id` int NOT NULL,
-  PRIMARY KEY (`client_rnc`),
+  PRIMARY KEY (`rnc`),
   KEY `fk_user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `products`
+-- Table structure for table `productos`
 --
 
-DROP TABLE IF EXISTS `products`;
-CREATE TABLE IF NOT EXISTS `products` (
+DROP TABLE IF EXISTS `productos`;
+CREATE TABLE IF NOT EXISTS `productos` (
   `product_id` int NOT NULL AUTO_INCREMENT,
   `product_name` varchar(75) DEFAULT NULL,
   `reference` varchar(50) DEFAULT NULL,
@@ -63,28 +63,29 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suppliers`
+-- Table structure for table `proveedores`
 --
 
-DROP TABLE IF EXISTS `suppliers`;
-CREATE TABLE IF NOT EXISTS `suppliers` (
-  `supplier_rnc` varchar(9) NOT NULL,
+DROP TABLE IF EXISTS `proveedores`;
+CREATE TABLE IF NOT EXISTS `proveedores` (
+  `rnc` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `supplier_name` varchar(50) DEFAULT NULL,
   `supplier_address` varchar(100) DEFAULT NULL,
   `supplier_phone` varchar(15) DEFAULT NULL,
-  `supplier_email` varchar(50) DEFAULT NULL,
+  `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `user_id` int NOT NULL,
-  PRIMARY KEY (`supplier_rnc`)
+  PRIMARY KEY (`rnc`),
+  KEY `fk_proveedores-user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `usuarios`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+DROP TABLE IF EXISTS `usuarios`;
+CREATE TABLE IF NOT EXISTS `usuarios` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) DEFAULT NULL,
@@ -93,20 +94,24 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_pass` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `clientes`
+--
+ALTER TABLE `clientes`
+  ADD CONSTRAINT `fk_clientes-user_id` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `proveedores`
+--
+ALTER TABLE `proveedores`
+  ADD CONSTRAINT `fk_proveedores-user_id` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-
-
-
-ALTER TABLE `clients`
-ADD CONSTRAINT `fk_clients-user_id`
-FOREIGN KEY (`user_id`) 
-REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `suppliers`
-ADD CONSTRAINT `fk_suppliers-user_id`
-FOREIGN KEY (`user_id`) 
-REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
