@@ -1,5 +1,5 @@
--- CREATE TABLE Usuarios(
---     Id_Usuarios INT PRIMARY KEY,
+-- CREATE TABLE users(
+--     Id_users INT PRIMARY KEY,
 --     Nombre VARCHAR(50),
 --     Apellido VARCHAR(50),
 --     Correo VARCHAR(50),
@@ -50,7 +50,7 @@
 
 
 CREATE TABLE users(
-    id_usuarios INT PRIMARY KEY AUTO_INCREMENT,
+    id_users INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(50),
     lastname VARCHAR(50),
     email VARCHAR(50),
@@ -65,7 +65,7 @@ CREATE TABLE clients(
     client_phone VARCHAR(15),
     client_email VARCHAR(50),
     client_address VARCHAR(100),
-    user_id INT NOT NULL REFERENCES usuarios(id_usuario) 
+    user_id INT NOT NULL REFERENCES users(user_id) 
 );
 
 CREATE TABLE suppliers(
@@ -74,7 +74,7 @@ CREATE TABLE suppliers(
     supplier_address VARCHAR(100),
     supplier_phone VARCHAR(15),
     supplier_email VARCHAR(50),
-    user_id INT NOT NULL REFERENCES usuarios(id_usuario) 
+    user_id INT NOT NULL REFERENCES users(user_id) 
 );
 
 CREATE TABLE products(
@@ -84,6 +84,11 @@ CREATE TABLE products(
     product_description VARCHAR(50),
     cost FLOAT,
     price FLOAT,
-    supplier_rnc INT NOT NULL REFERENCES proveedor(id_proveedor),
-    user_id INT NOT NULL REFERENCES usuarios(id_usuario) 
+    supplier_rnc INT NOT NULL REFERENCES suppliers(supplier_rnc),
+    user_id INT NOT NULL REFERENCES users(user_id) 
 );
+
+
+ALTER TABLE clients
+ADD CONSTRAINT fk_user_id 
+FOREIGN KEY (user_id) REFERENCES users(id_users);
