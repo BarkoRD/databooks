@@ -22,7 +22,7 @@ app.use(cookieParser('elpepe'))
 
 const sessionMiddleware = session({
   secret: 'capwise',
-  resave: true,
+  resave: false,
   saveUninitialized: true
 })
 app.use(sessionMiddleware)
@@ -30,9 +30,6 @@ app.use(sessionMiddleware)
 app.use(express.urlencoded({ extended: true }))
 
 app.use(express.static(path.join(__dirname, 'public')))
-
-// una sesion es el tiempo de una persona en tu pagina
-// persona entra == crea una sesion
 
 // MANEJO DE SOLICITUDES GET
 app.get('/', (req, res) => {
@@ -43,12 +40,11 @@ app.get('/index', (req, res) => {
   req.session.loggedin ? res.render('index') : res.redirect('login')
 })
 
-let id = 0
-
 app.get('/clientes', async (req, res) => {
-  console.log(id)
+  const id = req.session.user_id
+  console.log(req.session.user_id, req.session.loggedin)
   const [clientes] = await pool.promise().query('SELECT * FROM clients WHERE user_id = ?', id)
-  console.log({ clientes })
+  // console.log({ clientes })
   req.session.loggedin ? res.render('clientes', { clientes }) : res.redirect('login')
 })
 
@@ -75,6 +71,7 @@ app.get('/logout', (req, res) => {
 app.post('/register', async (req, res) => {
   const newData = req.body
   const [data] = await pool.promise().query('SELECT * FROM users WHERE email = ?', [newData.email])
+  const regex = /a/
   if (data.length > 0) {
     const error = 'Este correo ya esta registrado'
     res.render('register', { error })
@@ -90,7 +87,6 @@ app.post('/login', async (req, res) => {
   if (data.length > 0) {
     req.session.loggedin = true
     req.session.user_id = data[0].user_id
-    id = data[0].user_id
     res.redirect('index')
   } else {
     const error = 'Correo o contraseña incorrectos'
@@ -100,14 +96,13 @@ app.post('/login', async (req, res) => {
 
 app.post('/crearClientes', async (req, res) => {
   const newData = req.body
-  newData.user_id = id
+  newData.user_id = req.session.user_id
   const [data] = await pool.promise().query('SELECT * FROM clients WHERE client_rnc = ? OR client_email = ?', [newData.rnc, newData.correo])
-  console.log(data)
+  // console.log(data)
   if (data.length > 0) {
-    console.log('ya existe')
     res.render('crearClientes')
   } else {
-    const pepe = await pool.promise().query('INSERT INTO clients SET ?', newData)
+    const [results] = await pool.promise().query('INSERT INTO clients SET ?', newData)
     res.redirect('clientes')
   }
 })
