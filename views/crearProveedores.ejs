@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/crearCliente.css" />
+    <title>Capital Wise</title>
+  </head>
+  <body>
+    <nav class="nav-bar">
+      <a href="./index"
+        ><img
+          class="nav-bar__logo"
+          src="media/logo.webp"
+          alt="Wise investors logo"
+      /></a>
+      <ul class="nav-bar__menu">
+        <li class="nav-bar__menu-item">
+          <a href="./clientes">Clientes</a>
+        </li>
+        <li class="nav-bar__menu-item"><a href="./proveedores">Proveedores</a></li>
+        <li class="nav-bar__menu-item"><a href="#">articulos</a></li>
+        <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
+        <li class="nav-bar__menu-item"><a href="./logout">Cerrar sesión</a></li>
+      </ul>
+    </nav>
+    <main>
+      <h1 class="title">Agrega un nuevo Proveedor</h1>
+      <form class="new-client" method="POST" action="/crearProveedores" autocomplete="off">
+
+        <input
+          class="new-client__input"
+          type="text"
+          name="proveedores_rnc"
+          id="rnc"
+          required
+          placeholder="RNC"
+        />
+        <input
+          class="new-client__input"
+          type="text"
+          name="Proveedores_name"
+          id="nombre"
+          required
+          placeholder="Nombre"
+        />
+        <input
+        class="new-client__input"
+        type="text"
+        name="Proveedores_address"
+        id="direccion"
+        placeholder="Dirección"
+      />
+      <input
+      class="new-client__input"
+      type="text"
+      name="proveedores_phone"
+      id="telefono"
+      required
+      placeholder="Telefono"
+    />
+        <input
+          class="new-client__input"
+          type="text"
+          name="proveedores_email"
+          id="correo"
+          required
+          placeholder="Correo"
+        />
+        <div class="new-client__buttons">
+          <input
+            class="new-client__button"
+            type="submit"
+            value="Agregar Proveedor"
+          />
+          <input
+          class="new-client__button"
+          type="submit"
+          value="Guardar y agregar otro"
+        />
+        </div>
+      </form>
+    </main>
+
+    <script src="./javascript/main.js"></script>
+  </body>
+</html>
