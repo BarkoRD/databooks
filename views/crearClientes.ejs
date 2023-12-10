@@ -12,8 +12,12 @@
     <%- include('header.ejs') %>
     <main>
       <h1 class="title">Agrega un nuevo cliente</h1>
-      <form class="new-client" method="POST" action="/crearClientes" autocomplete="off">
-
+      <form
+        class="new-client"
+        method="POST"
+        action="/crearClientes"
+        autocomplete="off"
+      >
         <input
           class="new-client__input"
           type="text"
@@ -70,11 +74,11 @@
             value="Agregar"
           />
           <input
-          class="new-client__button"
-          type="submit"
-          name="action"
-          value="Guardar y agregar otro"
-        />
+            class="new-client__button"
+            type="submit"
+            name="action"
+            value="Guardar y agregar otro"
+          />
         </div>
       </form>
     </main>

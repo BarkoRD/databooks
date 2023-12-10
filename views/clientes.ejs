@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/clientes.css">
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/clientes.css" />
     <title>Capital Wise</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <%- include('header.ejs') %>
     <section class="clients-container">
-        <span class="create-client">
-            <h1 class="clients-container__title">Clientes</h1>
-            <a class="create-client__button" href="./crearClientes">Agrega clientes</a>
-        </span>
+      <span class="create-client">
+        <h1 class="clients-container__title">Clientes</h1>
+        <a class="create-client__button" href="./crearClientes"
+          >Agrega clientes</a
+        >
+      </span>
 
-        <table class="table">
-            <thead class="table__head">
-                <tr class="">
-                    <th class="table__head-title">Razón social</th>
-                    <th class="table__head-title">Nombre</th>
-                    <th class="table__head-title">Telefono</th>
-                    <th class="table__head-title">Correo</th>
-                </tr>
-            </thead>
-            <tbody>
-                    <% tableitems.forEach((cliente)=>{ %>
-                        <tr class="table__row">
-                            <td class="table__row-data"><%=cliente.razon_social%></td>
-                            <td class="table__row-data"><%=cliente.client_name%></td>
-                            <td class="table__row-data"><%=cliente.client_phone%></td>
-                            <td class="table__row-data"><%=cliente.email%></td>
-                        </tr>
-                    <% }) %>
-            </tbody>
-        </table>
+      <table class="table">
+        <thead class="table__head">
+          <tr class="">
+            <th class="table__head-title">Razón social</th>
+            <th class="table__head-title">Nombre</th>
+            <th class="table__head-title">Telefono</th>
+            <th class="table__head-title">Correo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tableitems.forEach((cliente)=>{ %>
+          <tr class="table__row">
+            <td class="table__row-data"><%=cliente.razon_social%></td>
+            <td class="table__row-data"><%=cliente.client_name%></td>
+            <td class="table__row-data"><%=cliente.client_phone%></td>
+            <td class="table__row-data"><%=cliente.email%></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
     </section>
-</body>
-
+  </body>
 </html>

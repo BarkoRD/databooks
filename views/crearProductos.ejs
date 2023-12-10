@@ -60,9 +60,10 @@
         <select name="" id="">
           <option value="">Elegir</option>
           <% suppliers.forEach(supplier => { %>
-          <option value="<%= supplier.supplier_name %>"><%= supplier.supplier_name %></option>
-          <% console.log(supplier.rnc) %>
-          <% }) %>
+          <option value="<%= supplier.rnc %>">
+            <%= supplier.supplier_name %>
+          </option>
+          <% console.log(supplier.rnc, supplier.supplier_name) %> <% }) %>
         </select>
         <div class="new-client__buttons">
           <input
