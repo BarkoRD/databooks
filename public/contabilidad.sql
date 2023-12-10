@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Dec 07, 2023 at 07:58 PM
--- Server version: 8.2.0
--- PHP Version: 8.2.13
+-- Servidor: 127.0.0.1:3306
+-- Tiempo de generación: 10-12-2023 a las 21:28:46
+-- Versión del servidor: 8.2.0
+-- Versión de PHP: 8.2.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `contabilidad`
+-- Base de datos: `contabilidad`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clientes`
+-- Estructura de tabla para la tabla `clientes`
 --
 
 DROP TABLE IF EXISTS `clientes`;
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productos`
+-- Estructura de tabla para la tabla `productos`
 --
 
 DROP TABLE IF EXISTS `productos`;
@@ -54,16 +54,18 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `product_description` varchar(50) DEFAULT NULL,
   `cost` float DEFAULT NULL,
   `price` float DEFAULT NULL,
-  `supplier_rnc` int NOT NULL,
+  `supplier_rnc` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`product_id`),
-  UNIQUE KEY `reference` (`reference`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `reference` (`reference`),
+  KEY `fk_productos-user_id` (`user_id`),
+  KEY `fk_productos-supplier_rnc` (`supplier_rnc`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `proveedores`
+-- Estructura de tabla para la tabla `proveedores`
 --
 
 DROP TABLE IF EXISTS `proveedores`;
@@ -81,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 DROP TABLE IF EXISTS `usuarios`;
@@ -93,20 +95,27 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `phone` varchar(15) DEFAULT NULL,
   `user_pass` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Constraints for dumped tables
+-- Restricciones para tablas volcadas
 --
 
 --
--- Constraints for table `clientes`
+-- Filtros para la tabla `clientes`
 --
 ALTER TABLE `clientes`
   ADD CONSTRAINT `fk_clientes-user_id` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `proveedores`
+-- Filtros para la tabla `productos`
+--
+ALTER TABLE `productos`
+  ADD CONSTRAINT `fk_productos-supplier_rnc` FOREIGN KEY (`supplier_rnc`) REFERENCES `proveedores` (`rnc`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_productos-user_id` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
   ADD CONSTRAINT `fk_proveedores-user_id` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;

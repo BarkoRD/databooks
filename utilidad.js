@@ -29,3 +29,11 @@
 // app.get('/crearProveedores', (req, res) => {
 //   req.session.loggedin ? res.render('crearProveedores') : res.redirect('login')
 // })
+
+// GET PRODUCTOS
+
+// app.get('/productos', async (req, res) => {
+//   const id = req.session.user_id
+//   const [tableitems] = await pool.promise().query('SELECT * FROM productos WHERE user_id = ?', id)
+//   req.session.loggedin ? res.render('productos', { tableitems }) : res.redirect('login')
+// })

@@ -6,6 +6,7 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
+import isLogged from './authMiddleware.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -29,28 +30,24 @@ app.use(express.static(path.join(__dirname, 'public')))
 // MANEJO DE SOLICITUDES GET
 
 // /^\/(index|crearClientes|crearProveedores)$/  -->  regex para index, crearClientes y crearProveedores
-app.get(['/', '/index', '/crearClientes', '/crearProveedores', '/crearProductos'], (req, res) => {
-  req.session.loggedin ? res.render(req.url.slice(1)) : res.redirect('login')
+app.get(['/', '/index', '/crearClientes', '/crearProveedores'], isLogged, (req, res) => {
+  // req.session.loggedin ? res.render(req.url.slice(1)) : res.redirect('login')
+  res.render(req.url.slice(1))
+})
+
+app.get('/crearProductos', isLogged, async (req, res) => {
+  const id = req.session.user_id
+  const suppliers = await pool.promise().query('SELECT * FROM proveedores where user_id = ?', id)
+  res.render(req.url.slice(1), { suppliers: suppliers[0] })
 })
 
 // Clientes, Proveedores GET
 
-app.get(['/clientes', '/proveedores'], async (req, res) => {
-  const select = req.url === '/clientes' ? 'clientes' : 'proveedores'
+app.get(['/clientes', '/proveedores', '/productos'], isLogged, async (req, res) => {
+  const select = req.url.slice(1)
   const id = req.session.user_id
   const [tableitems] = await pool.promise().query(`SELECT * FROM ${select} WHERE user_id = ?`, id)
-  req.session.loggedin ? res.render(`${select}`, { tableitems }) : res.redirect('login')
-  console.log(tableitems)
-})
-
-// GET PRODUCTOS
-
-app.get('/productos', async (req, res) => {
-  const selectOne = 'productos'
-  const id = req.session.user_id
-  const [tableitem] = await pool.promise().query(`SELECT * FROM ${selectOne} WHERE user_id = ?`, id)
-  req.session.loggedin ? res.render(`${selectOne}`, { tableitem }) : res.redirect('login')
-  console.log(tableitem)
+  res.render(`${select}`, { tableitems })
 })
 
 // GET LOGIN
@@ -95,15 +92,18 @@ app.post('/login', async (req, res) => {
 // POST clientes y proveedores
 
 app.post(['/crearClientes', '/crearProveedores'], async (req, res) => {
+  const action = req.body.action
   const newData = req.body
+  delete newData.action
   const id = req.session.user_id
   newData.user_id = id
-  const select = req.url === '/crearClientes' ? 'clientes' : 'proveedores'
+  const select = req.url.replace('/crear', '')
   const [data] = await pool.promise().query(`SELECT * FROM ${select} WHERE rnc = ? OR email = ?`, [newData.rnc, newData.email])
   if (data.length > 0) {
     res.render(req.url.slice(1))
   } else {
     await pool.promise().query(`INSERT INTO ${select} SET ?`, newData)
+    console.log(select)
     res.redirect(`${select}`)
   }
 })
@@ -111,36 +111,25 @@ app.post(['/crearClientes', '/crearProveedores'], async (req, res) => {
 // POST PRODUCTOS
 
 app.post('/crearProductos', async (req, res) => {
-  const newData = {
-    product_id: req.product_id,
-    product_name: req.body.product_name,
-    reference: req.body.reference,
-    product_description: req.body.product_description,
-    cost: req.body.cost,
-    price: req.body.price,
-    supplier_rnc: req.body.supplier_rnc,
-    user_id: req.user_id
-  }
-
+  const action = req.body.action
+  const newData = req.body
+  delete newData.action
   const id = req.session.user_id
   newData.user_id = id
 
-  const selectOne = 'productos'
   const [data] = await pool.promise().query(
-    `SELECT * FROM ${selectOne} WHERE supplier_rnc = ?`,
-    [newData.supplier_rnc]
+    'SELECT * FROM productos WHERE supplier_rnc = ? AND product_name = ?',
+    [newData.supplier_rnc, newData.product_name]
   )
 
   if (data.length > 0) {
-    // El producto ya existe
+    res.render(req.url.slice(1), { error: 'El producto ya existe' })
   } else {
-    // El producto no existe, se crea
-    res.render(req.url.slice(1))
     await pool.promise().query(
-      `INSERT INTO ${selectOne} SET?`,
+      'INSERT INTO productos SET ?',
       newData
     )
-    res.redirect(`${selectOne}`)
+    action === 'Agregar' ? res.redirect('productos') : res.redirect('crearProductos')
   }
 })
 

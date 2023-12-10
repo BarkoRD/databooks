@@ -1,55 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/clientes.css">
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/clientes.css" />
     <title>Capital Wise</title>
-</head>
+  </head>
 
-<body>
-    <nav class="nav-bar"> 
-        <!-- quitar el tabindex -->
-        <a href="./index" tabindex=""><img class="nav-bar__logo" src="media/logo.webp" alt="Wise investors logo" /></a>
-        <ul class="nav-bar__menu">
-            <li class="nav-bar__menu-item">
-                <a href="./clientes">Clientes</a>
-            </li>
-            <li class="nav-bar__menu-item"><a href="./proveedores">Proveedores</a></li>
-            <li class="nav-bar__menu-item"><a href="./productos">Productos</a></li>
-            <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
-            <li class="nav-bar__menu-item"><a href="./logout">Cerrar sesión</a></li>
-        </ul>
-    </nav>
+  <body>
+    <%- include('header.ejs') %>
     <section class="clients-container">
-        <span class="create-client">
-            <h1 class="clients-container__title">Proveedores</h1>
-            <a class="create-client__button" href="./crearProveedores">Agrega Proveedores</a>
-        </span>
+      <span class="create-client">
+        <h1 class="clients-container__title">Proveedores</h1>
+        <a class="create-client__button" href="./crearProveedores"
+          >Agrega Proveedores</a
+        >
+      </span>
 
-        <table class="table">
-            <thead class="table__head">
-              <tr class="">
-                <th class="table__head-title">Nombre</th>
-                <th class="table__head-title">Direccion</th>
-                <th class="table__head-title">Correo</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% tableitems.forEach((Proveedor)=> { %>
-                <tr class="table__row">
-                  <td class="table__row-data"><%= Proveedor.supplier_name %></td>
-                  <td class="table__row-data"><%= Proveedor.supplier_address %></td>
-                  <td class="table__row-data"><%= Proveedor.email %></td>
-                </tr>
-              <% }) %>
-            </tbody>
-          </table>
-          
+      <table class="table">
+        <thead class="table__head">
+          <tr class="">
+            <th class="table__head-title">Nombre</th>
+            <th class="table__head-title">Direccion</th>
+            <th class="table__head-title">Correo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tableitems.forEach((Proveedor)=> { %>
+          <tr class="table__row">
+            <td class="table__row-data"><%= Proveedor.supplier_name %></td>
+            <td class="table__row-data"><%= Proveedor.supplier_address %></td>
+            <td class="table__row-data"><%= Proveedor.email %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
     </section>
-</body>
-
+  </body>
 </html>

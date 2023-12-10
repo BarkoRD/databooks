@@ -3,29 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/style.css">
-    <link rel="stylesheet" href="/styles/header.css">
+    <link rel="stylesheet" href="/styles/style.css" />
+    <link rel="stylesheet" href="/styles/header.css" />
     <title>Capital Wise</title>
   </head>
   <body>
-    <nav class="nav-bar">
-      <a href="./index"
-        ><img
-          class="nav-bar__logo"
-          src="media/logo.webp"
-          alt="Wise investors logo"
-      /></a>
-      <ul class="nav-bar__menu">
-        <li class="nav-bar__menu-item">
-          <a href="./clientes">Clientes</a>
-        </li>
-        <li class="nav-bar__menu-item"><a href="./proveedores">Proveedores</a></li>
-        <li class="nav-bar__menu-item"><a href="./productos">Productos</a></li>
-        <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
-        <li class="nav-bar__menu-item"><a href="./logout">Cerrar sesión</a></li>
-      </ul>
-    </nav>
-
+    <%- include('header.ejs') %>
     <script src="./javascript/main.js"></script>
   </body>
 </html>

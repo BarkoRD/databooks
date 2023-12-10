@@ -9,23 +9,7 @@
     <title>Capital Wise</title>
   </head>
   <body>
-    <nav class="nav-bar">
-      <a href="./index"
-        ><img
-          class="nav-bar__logo"
-          src="media/logo.webp"
-          alt="Wise investors logo"
-      /></a>
-      <ul class="nav-bar__menu">
-        <li class="nav-bar__menu-item">
-          <a href="./clientes">Clientes</a>
-        </li>
-        <li class="nav-bar__menu-item"><a href="./proveedores">Proveedores</a></li>
-        <li class="nav-bar__menu-item"><a href="./productos">Productos</a></li>
-        <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
-        <li class="nav-bar__menu-item"><a href="./logout">Cerrar sesión</a></li>
-      </ul>
-    </nav>
+    <%- include('header.ejs') %>
     <main>
       <h1 class="title">Agrega un nuevo cliente</h1>
       <form class="new-client" method="POST" action="/crearClientes" autocomplete="off">
@@ -82,11 +66,13 @@
           <input
             class="new-client__button"
             type="submit"
-            value="Agregar cliente"
+            name="action"
+            value="Agregar"
           />
           <input
           class="new-client__button"
           type="submit"
+          name="action"
           value="Guardar y agregar otro"
         />
         </div>

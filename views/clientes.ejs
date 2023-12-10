@@ -11,19 +11,7 @@
 </head>
 
 <body>
-    <nav class="nav-bar"> 
-        <!-- quitar el tabindex -->
-        <a href="./index" tabindex=""><img class="nav-bar__logo" src="media/logo.webp" alt="Wise investors logo" /></a>
-        <ul class="nav-bar__menu">
-            <li class="nav-bar__menu-item">
-                <a href="./clientes">Clientes</a>
-            </li>
-            <li class="nav-bar__menu-item"><a href="./proveedores">Proveedores</a></li>
-            <li class="nav-bar__menu-item"><a href="./productos">Productos</a></li>
-            <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
-            <li class="nav-bar__menu-item"><a href="./logout">Cerrar sesión</a></li>
-        </ul>
-    </nav>
+    <%- include('header.ejs') %>
     <section class="clients-container">
         <span class="create-client">
             <h1 class="clients-container__title">Clientes</h1>
@@ -37,7 +25,6 @@
                     <th class="table__head-title">Nombre</th>
                     <th class="table__head-title">Telefono</th>
                     <th class="table__head-title">Correo</th>
-                    <!-- <th>Acciones</th> -->
                 </tr>
             </thead>
             <tbody>

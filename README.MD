@@ -1,6 +1,6 @@
-Cambios realizados: 
-  - cree agrupe varios manejadores de rutas get y post en una misma funcion
-  - Los antiguos manejadores estan comentados en utilidad.js
-  - Los proveedores ya pueden ser creados y mostrados
-  - Hice cambios en la base de datos para que se puedan crear proveedores (ver base de datos en public/contabilidad.sql)
-  
+# Cambios realizados:
+* Middleware para validar session del usuario
+* Correcto manejo de solicitudes para productos y crear productos
+* header modulado en un archivo ejs e importado en los demas archivos ejs
+* Para no eliminar codigo js, se estan guardando codigos comentados en el archivo utilidad.js
+* **MODIFICACION EN LA BASE DE DATOS**

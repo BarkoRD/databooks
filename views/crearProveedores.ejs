@@ -9,27 +9,15 @@
     <title>Capital Wise</title>
   </head>
   <body>
-    <nav class="nav-bar">
-      <a href="./index"
-        ><img
-          class="nav-bar__logo"
-          src="media/logo.webp"
-          alt="Wise investors logo"
-      /></a>
-      <ul class="nav-bar__menu">
-        <li class="nav-bar__menu-item">
-          <a href="./clientes">Clientes</a>
-        </li>
-        <li class="nav-bar__menu-item"><a href="./proveedores">Proveedores</a></li>
-        <li class="nav-bar__menu-item"><a href="./productos">Productos</a></li>
-        <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
-        <li class="nav-bar__menu-item"><a href="./logout">Cerrar sesión</a></li>
-      </ul>
-    </nav>
+    <%- include('header.ejs') %>
     <main>
       <h1 class="title">Agrega un nuevo Proveedor</h1>
-      <form class="new-client" method="POST" action="/crearProveedores" autocomplete="off">
-
+      <form
+        class="new-client"
+        method="POST"
+        action="/crearProveedores"
+        autocomplete="off"
+      >
         <input
           class="new-client__input"
           type="text"
@@ -47,20 +35,20 @@
           placeholder="Nombre"
         />
         <input
-        class="new-client__input"
-        type="text"
-        name="supplier_address"
-        id="direccion"
-        placeholder="Dirección"
-      />
-      <input
-      class="new-client__input"
-      type="text"
-      name="supplier_phone"
-      id="telefono"
-      required
-      placeholder="Telefono"
-    />
+          class="new-client__input"
+          type="text"
+          name="supplier_address"
+          id="direccion"
+          placeholder="Dirección"
+        />
+        <input
+          class="new-client__input"
+          type="text"
+          name="supplier_phone"
+          id="telefono"
+          required
+          placeholder="Telefono"
+        />
         <input
           class="new-client__input"
           type="text"
@@ -73,13 +61,15 @@
           <input
             class="new-client__button"
             type="submit"
-            value="Agregar Proveedor"
+            name="action"
+            value="Agregar"
           />
           <input
-          class="new-client__button"
-          type="submit"
-          value="Guardar y agregar otro"
-        />
+            class="new-client__button"
+            type="submit"
+            name="action"
+            value="Guardar y agregar otro"
+          />
         </div>
       </form>
     </main>

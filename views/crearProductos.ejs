@@ -9,77 +9,74 @@
     <title>Capital Wise</title>
   </head>
   <body>
-    <nav class="nav-bar">
-      <a href="./index"
-        ><img
-          class="nav-bar__logo"
-          src="media/logo.webp"
-          alt="Wise investors logo"
-      /></a>
-      <ul class="nav-bar__menu">
-        <li class="nav-bar__menu-item">
-          <a href="./clientes">Clientes</a>
-        </li>
-        <li class="nav-bar__menu-item"><a href="./proveedores">Proveedores</a></li>
-        <li class="nav-bar__menu-item"><a href="./productos">Productos</a></li>
-        <li class="nav-bar__menu-item"><a href="#">Entrada de diario</a></li>
-        <li class="nav-bar__menu-item"><a href="./logout">Cerrar sesión</a></li>
-      </ul>
-    </nav>
+    <%- include('header.ejs') %>
     <main>
       <h1 class="title">Agrega un nuevo Producto</h1>
-      <form class="new-client" method="POST" action="/crearProductos" autocomplete="off">
-
+      <form
+        class="new-client"
+        method="POST"
+        action="/crearProductos"
+        autocomplete="off"
+      >
         <input
-        class="new-client__input"
-        type="text"
-        name="product_name"
-        id="product_name"
-        required
-        placeholder="Nombre Producto"
-      />
-      <input
-        class="new-client__input"
-        type="text"
-        name="product_description"
-        id="product_description"
-        required
-        placeholder="Descripcion Producto"
-      />
-      <input
-      class="new-client__input"
-      type="text"
-      name="cost"
-      id="cost"
-      placeholder="costo"
-    />
-    <input
-    class="new-client__input"
-    type="text"
-    name="price"
-    id="price"
-    required
-    placeholder="precio"
-  />
-      <input
-        class="new-client__input"
-        type="text"
-        name="supplier_rnc"
-        id="supplier_rnc"
-        required
-        placeholder="RNC"
-      />
+          class="new-client__input"
+          type="text"
+          name="product_name"
+          id="product_name"
+          required
+          placeholder="Nombre Producto"
+        />
+        <input
+          class="new-client__input"
+          type="text"
+          name="product_description"
+          id="product_description"
+          required
+          placeholder="Descripcion Producto"
+        />
+        <input
+          class="new-client__input"
+          type="number"
+          name="cost"
+          id="cost"
+          placeholder="costo"
+        />
+        <input
+          class="new-client__input"
+          type="number"
+          name="price"
+          id="price"
+          required
+          placeholder="precio"
+        />
+        <input
+          class="new-client__input"
+          type="number"
+          name="supplier_rnc"
+          id="supplier_rnc"
+          required
+          placeholder="RNC del proveedor"
+        />
+        <select name="" id="">
+          <option value="">Elegir</option>
+          <% suppliers.forEach(supplier => { %>
+          <option value="<%= supplier.supplier_name %>"><%= supplier.supplier_name %></option>
+          <% console.log(supplier.rnc) %>
+          <% }) %>
+        </select>
         <div class="new-client__buttons">
           <input
             class="new-client__button"
             type="submit"
-            value="Agregar Productos"
+            name="action"
+            value="Agregar"
           />
           <input
-          class="new-client__button"
-          type="submit"
-          value="Guardar y agregar otro"
-        />
+            class="new-client__button"
+            type="submit"
+            name="action"
+            value="Guardar y agregar otro"
+          />
         </div>
       </form>
     </main>
