@@ -91,7 +91,7 @@ app.post('/login', async (req, res) => {
 
 // POST clientes y proveedores
 
-app.post(['/crearClientes', '/crearProveedores'], async (req, res) => {
+app.post(['/crearClientes', isLogged, '/crearProveedores'], async (req, res) => {
   const action = req.body.action
   const newData = req.body
   delete newData.action
@@ -103,14 +103,13 @@ app.post(['/crearClientes', '/crearProveedores'], async (req, res) => {
     res.render(req.url.slice(1))
   } else {
     await pool.promise().query(`INSERT INTO ${select} SET ?`, newData)
-    console.log(select)
     res.redirect(`${select}`)
   }
 })
 
 // POST PRODUCTOS
 
-app.post('/crearProductos', async (req, res) => {
+app.post('/crearProductos', isLogged, async (req, res) => {
   const action = req.body.action
   const newData = req.body
   delete newData.action
@@ -131,6 +130,27 @@ app.post('/crearProductos', async (req, res) => {
     )
     action === 'Agregar' ? res.redirect('productos') : res.redirect('crearProductos')
   }
+})
+
+app.get('/libro-diario', isLogged, async (req, res) => {
+  const id = req.session.user_id
+  const [tableitems] = await pool.promise().query('SELECT * FROM facturas WHERE user_id = ?', id)
+  res.render('libro-diario', { tableitems })
+})
+
+app.get('/crearFactura', isLogged, async (req, res) => {
+  const id = req.session.user_id
+  const [clientes] = await pool.promise().query('SELECT * FROM clientes WHERE user_id = ?', id)
+  res.render('crearFactura', { clientes })
+})
+
+app.post('/crearFactura', isLogged, async (req, res) => {
+  const newData = req.body
+  const id = req.session.user_id
+  newData.user_id = id
+  delete newData.action
+  await pool.promise().query('INSERT INTO facturas SET ?', newData)
+  res.redirect('libro-diario')
 })
 
 server.listen(process.env.PORT || 3000, () => {

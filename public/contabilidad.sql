@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 10-12-2023 a las 21:28:46
+-- Tiempo de generación: 11-12-2023 a las 05:11:57
 -- Versión del servidor: 8.2.0
 -- Versión de PHP: 8.2.13
 
@@ -43,6 +43,24 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `facturas`
+--
+
+DROP TABLE IF EXISTS `facturas`;
+CREATE TABLE IF NOT EXISTS `facturas` (
+  `factura_id` int NOT NULL AUTO_INCREMENT,
+  `total` float DEFAULT NULL,
+  `fecha` datetime DEFAULT CURRENT_TIMESTAMP,
+  `cliente_rnc` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `user_id` int NOT NULL,
+  PRIMARY KEY (`factura_id`),
+  KEY `fk_factura-user_id` (`user_id`),
+  KEY `fk_factura-cliente_rnc` (`cliente_rnc`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `productos`
 --
 
@@ -50,17 +68,15 @@ DROP TABLE IF EXISTS `productos`;
 CREATE TABLE IF NOT EXISTS `productos` (
   `product_id` int NOT NULL AUTO_INCREMENT,
   `product_name` varchar(75) DEFAULT NULL,
-  `reference` varchar(50) DEFAULT NULL,
   `product_description` varchar(50) DEFAULT NULL,
   `cost` float DEFAULT NULL,
   `price` float DEFAULT NULL,
   `supplier_rnc` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `user_id` int NOT NULL,
   PRIMARY KEY (`product_id`),
-  UNIQUE KEY `reference` (`reference`),
   KEY `fk_productos-user_id` (`user_id`),
   KEY `fk_productos-supplier_rnc` (`supplier_rnc`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -95,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `phone` varchar(15) DEFAULT NULL,
   `user_pass` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Restricciones para tablas volcadas
@@ -106,6 +122,13 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 --
 ALTER TABLE `clientes`
   ADD CONSTRAINT `fk_clientes-user_id` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `fk_factura-cliente_rnc` FOREIGN KEY (`cliente_rnc`) REFERENCES `clientes` (`rnc`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_factura-user_id` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `productos`

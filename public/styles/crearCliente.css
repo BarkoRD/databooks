@@ -19,18 +19,44 @@ main {
   border: 1px solid var(--accentColor);
   border-radius: 10px;
 }
-.new-client .new-client__input {
+.new-client .select {
+  cursor: pointer;
+}
+.new-client .select:required:invalid {
+  color: gray;
+}
+.new-client .select option {
+  color: black;
+}
+.new-client .select option:first-child {
+  color: gray;
+}
+.new-client .new-client__input,
+.new-client .select {
   width: 100%;
   padding: 10px 20px;
   display: block;
   border: 1px solid var(--dark-gray);
   box-shadow: 2px 2px 1px var(--dark-gray);
+  -webkit-appearance: none; /* WebKit/Blink browsers */
+  -moz-appearance: none; /* Gecko browsers */
+  appearance: none;
+  transition: all 0.1s ease-in-out;
 }
-.new-client .new-client__input:hover {
+.new-client .new-client__input:hover,
+.new-client .select:hover {
   border: 1px solid var(--accentColor);
 }
-.new-client .new-client__input:focus {
+.new-client .new-client__input:focus,
+.new-client .select:focus {
+  border: 1px solid var(--accentColor);
   outline: none;
+}
+.new-client .new-client__input::-webkit-inner-spin-button, .new-client .new-client__input::-webkit-outer-spin-button,
+.new-client .select::-webkit-inner-spin-button,
+.new-client .select::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* WebKit/Blink browsers */
+  margin: 0;
 }
 .new-client .new-client__buttons {
   width: 100%;

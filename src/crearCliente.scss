@@ -1,13 +1,13 @@
-main{
+main {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
 }
-.title{
+.title {
     margin-bottom: 20px;
 }
-.new-client{
+.new-client {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,26 +17,49 @@ main{
     border: 1px solid var(--accentColor);
     border-radius: 10px;
 
-    .new-client__input{
+    .select {
+        cursor: pointer;
+        &:required:invalid {
+            color: gray;
+        }
+        option {
+            color: black;
+
+            &:first-child {
+                color: gray;
+            }
+        }
+    }
+    .new-client__input,
+    .select {
         width: 100%;
         padding: 10px 20px;
         display: block;
         border: 1px solid var(--dark-gray);
         box-shadow: 2px 2px 1px var(--dark-gray);
-
-        &:hover{
+        -webkit-appearance: none;   /* WebKit/Blink browsers */
+        -moz-appearance: none;      /* Gecko browsers */
+        appearance: none;
+        transition: all 0.1s ease-in-out;
+        &:hover {
             border: 1px solid var(--accentColor);
         }
-        &:focus{
+        &:focus {
+            border: 1px solid var(--accentColor);
             outline: none;
         }
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none; /* WebKit/Blink browsers */
+            margin: 0;
+        }
     }
-    .new-client__buttons{
+    .new-client__buttons {
         width: 100%;
         display: flex;
         justify-content: space-between;
-        
-        .new-client__button{
+
+        .new-client__button {
             // width: 40%;
             padding: 10px 20px;
             border: 1px solid var(--accentColor);
@@ -45,24 +68,21 @@ main{
             cursor: pointer;
             transition: all 0.1s ease-in-out;
             box-shadow: 1px 1px 1px var(--dark-gray);
-            
+
             background-color: var(--accentColor);
             color: white;
-            &:hover{
+            &:hover {
                 background-color: white;
                 color: var(--accentColor);
             }
-            &:first-child{
+            &:first-child {
                 background-color: white;
                 color: var(--accentColor);
-                &:hover{
+                &:hover {
                     color: white;
                     background-color: var(--accentColor);
                 }
-                
             }
         }
-
     }
-
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/header.css" />
+    <link rel="stylesheet" href="styles/clientes.css" />
+    <title>Capital Wise</title>
+  </head>
+
+  <body>
+    <%- include('header.ejs') %>
+    <section class="clients-container">
+      <span class="create-client">
+        <h1 class="clients-container__title">Clientes</h1>
+        <a class="create-client__button" href="./crearFactura"
+          >Nueva factura</a
+        >
+      </span>
+
+      <table class="table">
+        <thead class="table__head">
+          <tr class="">
+            <th class="table__head-title">Código</th>
+            <th class="table__head-title">Fecha</th>
+            <th class="table__head-title">Cliente</th>
+            <th class="table__head-title">Total facturado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tableitems.forEach((factura)=>{ %>
+          <tr class="table__row">
+            <td class="table__row-data"><%=factura.factura_id%></td>
+            <td class="table__row-data"><%=new Date(factura.fecha).toLocaleDateString()%></td>
+            <td class="table__row-data"><%=factura.cliente_rnc%></td>
+            <td class="table__row-data"><%=factura.total%></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  </body>
+</html>

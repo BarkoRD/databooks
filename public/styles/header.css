@@ -15,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  column-gap: 25px;
+  column-gap: 35px;
 }
 .nav-bar .nav-bar__menu .nav-bar__menu-item {
   list-style: none;

@@ -11,43 +11,26 @@
   <body>
     <%- include('header.ejs') %>
     <main>
-      <h1 class="title">Agrega un nuevo Producto</h1>
+      <h1 class="title">Crear una nueva factura</h1>
       <form
         class="new-client"
         method="POST"
-        action="/crearProductos"
+        action="/crearFactura"
         autocomplete="off"
       >
         <input
           class="new-client__input"
-          type="text"
-          name="product_name"
-          id="product_name"
+          type="date"
+          name="fecha"
+          id="fecha"
           required
-          placeholder="Nombre"
-        />
-        <input
-          class="new-client__input"
-          type="text"
-          name="product_description"
-          id="product_description"
-          required
-          placeholder="Descripción"
         />
         <input
           class="new-client__input"
           type="number"
-          name="cost"
-          id="cost"
-          placeholder="Costo"
-        />
-        <input
-          class="new-client__input"
-          type="number"
-          name="price"
-          id="price"
-          required
-          placeholder="Precio"
+          name="total"
+          id="total"
+          placeholder="Total facturado"
         />
         <!-- <input
           class="new-client__input"
@@ -57,11 +40,11 @@
           required
           placeholder="RNC del proveedor"
         /> -->
-        <select name="supplier_rnc" class="select" required>
-          <option value="" class="default-option">Proveedor</option>
-          <% suppliers.forEach(supplier => { %>
-          <option value="<%= supplier.rnc %>">
-            <%= supplier.supplier_name %>
+        <select name="cliente_rnc" class="select" required>
+          <option value="" class="default-option">Cliente</option>
+          <% clientes.forEach(cliente => { %>
+          <option value="<%= cliente.rnc %>">
+            <%= cliente.client_name %>
             <% }) %>
           </option>
         </select>
