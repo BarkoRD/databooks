@@ -19,6 +19,10 @@ main {
   border: 1px solid var(--accentColor);
   border-radius: 10px;
 }
+.new-client .error {
+  color: red;
+  font-size: 1.2rem;
+}
 .new-client .select {
   cursor: pointer;
 }

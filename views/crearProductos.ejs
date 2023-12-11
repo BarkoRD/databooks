@@ -18,7 +18,9 @@
         action="/crearProductos"
         autocomplete="off"
       >
-        <input
+      <% if (error) %>
+      <p class="error"><%= error %></p>
+      <input
           class="new-client__input"
           type="text"
           name="product_name"
