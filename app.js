@@ -23,7 +23,7 @@ app.use(express.static('public'))
 // MANEJO DE SOLICITUDES GET
 
 // regex para index, crearClientes y crearProveedores
-app.get(/^\/(index|crearClientes|crearProveedores)?$/, isLogged, (req, res) => {
+app.get(/^\/(crearClientes|crearProveedores)?$/, isLogged, (req, res) => {
   res.render(req.url.slice(1))
 })
 
@@ -53,7 +53,7 @@ app.get(/^(\/clientes|\/proveedores|\/productos)$/,
 
 app.get(['/login', '/register'], (req, res) => {
   req.session.loggedin
-    ? res.redirect('index')
+    ? res.redirect('clientes')
     : res.render(req.url.slice(1), { error: '' })
 })
 
@@ -90,7 +90,7 @@ app.post('/login', async (req, res) => {
   if (data.length > 0) {
     req.session.loggedin = true
     req.session.user_id = data[0].user_id
-    res.redirect('index')
+    res.redirect('clientes')
   } else {
     const error = 'Correo o contraseña incorrectos'
     res.render('login', { error })
@@ -170,6 +170,7 @@ app.post('/crearFactura', isLogged, async (req, res) => {
   const id = req.session.user_id
   newData.user_id = id
   delete newData.action
+  if (newData.fecha === '') delete newData.fecha
   await pool.promise().query('INSERT INTO facturas SET ?', newData)
   res.redirect('libro-diario')
 })
