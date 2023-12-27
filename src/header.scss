@@ -1,3 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap");
+:root {
+  --primaryColor: #41a58d;
+  --secondColor: #c5fcef;
+  --accentColor: #11d6a8;
+  --textColor: #141f1c;
+  --bgColor: #f4f5fb;
+  --dark-gray: #9fa3a6;
+  --bold-font: 21px;
+  --demi-bold: 16px;
+  --medium-font: 14px;
+  --regular-font: 12px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+  list-style: none;
+  text-decoration: none;
+}
 .nav-bar {
   display: flex;
   justify-content: space-between;
@@ -10,53 +31,104 @@
   .nav-bar__logo {
     pointer-events: none;
     height: 7vh;
-    
-    // max-height: ;
+  }
+
+  .wallet-name {
+    cursor: pointer;
+    margin-right: 120px;
+
+    a {
+      font-size: 40px;
+
+      &:visited {
+        color: var(--textColor);
+      }
+      &:hover {
+        color: var(--accentColor);
+      }
+    }
   }
 
   .nav-bar__menu {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     column-gap: 35px;
 
-    // width: 30vw;
     .nav-bar__menu-item {
-      list-style: none;
+      position: relative;
       font-size: var(--medium-font);
       cursor: pointer;
+                
+      img{
+        height: 1rem;
+        transition: all 0.2s ease-in-out;
+      }
 
-      a {
+      &:hover {
+        .nav-bar__submenu {
+          display: flex;
+          animation: fadeIn 0.2s ease-in-out;
+        }
+
+        img{
+          transform: rotate(180deg);
+        }
+
+      }
+
+      .nav-bar__submenu {
+        display: none;
+        position: absolute;
+        right: -11px;
+        overflow: hidden;
+        flex-direction: column;
+        min-width: 70px;
+        border-radius: 4px;
+        background-color: var(--dark-gray);
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+        .nav-bar__submenu-item {
+          padding-block: 10px;
+          padding-inline: 15px 25px;
+
+
+
+          &:hover {
+            background-color: var(--primaryColor);
+            transition: all 0.2s ease-in-out;
+
+            a {
+              color: white;
+            }
+          }
+
+          a {
+            color: var(--textColor);
+            font-size: var(--regular-font);
+          }
+        }
+      }
+
+      .nav-bar__menu-links {
         position: relative;
-        text-decoration: none;
         font-size: var(--demi-bold);
+        align-self: start;
         color: var(--textColor);
 
-        &::before {
-          content: "";
-          display: inline-block;
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          transform: translateX(-50%);
-          width: 0;
-          height: 1px;
-          background-color: var(--accentColor);
-          transition: width 0.3s;
-        }
-
-        &:hover::before {
-          width: 100%;
-        }
-
-
-        &:visited {
-          color: var(--textColor);
-        }
         &:hover {
           color: var(--accentColor);
         }
       }
     }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }

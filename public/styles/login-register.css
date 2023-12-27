@@ -41,7 +41,7 @@ body {
   background-color: var(--primaryColor);
   transform: scaleX(0);
   transform-origin: center;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   box-shadow: 0 0 5px var(gray);
 }
 .register .input-container:focus-within::after, .register .input-container:hover::after,
@@ -59,6 +59,11 @@ body {
   border: none;
   outline: none;
   background-color: transparent;
+}
+.register .input-container .input:not(:-moz-placeholder-shown) + .label, .login .input-container .input:not(:-moz-placeholder-shown) + .label {
+  transform: translateY(-170%) scale(0.8) translateX(-15%);
+  opacity: 1;
+  color: var(--accentColor);
 }
 .register .input-container .input:focus + .label, .register .input-container .input:not(:placeholder-shown) + .label,
 .login .input-container .input:focus + .label,
@@ -101,4 +106,4 @@ body {
   position: relative;
   text-decoration: none;
   color: var(--accentColor);
-}/*# sourceMappingURL=login-register.css.map */
+}

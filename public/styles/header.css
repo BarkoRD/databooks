@@ -1,3 +1,26 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap");
+:root {
+  --primaryColor: #41a58d;
+  --secondColor: #c5fcef;
+  --accentColor: #11d6a8;
+  --textColor: #141f1c;
+  --bgColor: #f4f5fb;
+  --dark-gray: #9fa3a6;
+  --bold-font: 21px;
+  --demi-bold: 16px;
+  --medium-font: 14px;
+  --regular-font: 12px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nunito Sans", sans-serif;
+  list-style: none;
+  text-decoration: none;
+}
+
 .nav-bar {
   display: flex;
   justify-content: space-between;
@@ -11,41 +34,83 @@
   pointer-events: none;
   height: 7vh;
 }
+.nav-bar .wallet-name {
+  cursor: pointer;
+  margin-right: 120px;
+}
+.nav-bar .wallet-name a {
+  font-size: 40px;
+}
+.nav-bar .wallet-name a:visited {
+  color: var(--textColor);
+}
+.nav-bar .wallet-name a:hover {
+  color: var(--accentColor);
+}
 .nav-bar .nav-bar__menu {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  column-gap: 35px;
+  -moz-column-gap: 35px;
+       column-gap: 35px;
 }
 .nav-bar .nav-bar__menu .nav-bar__menu-item {
-  list-style: none;
+  position: relative;
   font-size: var(--medium-font);
   cursor: pointer;
 }
-.nav-bar .nav-bar__menu .nav-bar__menu-item a {
-  position: relative;
-  text-decoration: none;
-  font-size: var(--demi-bold);
-  color: var(--textColor);
+.nav-bar .nav-bar__menu .nav-bar__menu-item img {
+  height: 1rem;
+  transition: all 0.2s ease-in-out;
 }
-.nav-bar .nav-bar__menu .nav-bar__menu-item a::before {
-  content: "";
-  display: inline-block;
+.nav-bar .nav-bar__menu .nav-bar__menu-item:hover .nav-bar__submenu {
+  display: flex;
+  animation: fadeIn 0.2s ease-in-out;
+}
+.nav-bar .nav-bar__menu .nav-bar__menu-item:hover img {
+  transform: rotate(180deg);
+}
+.nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__submenu {
+  display: none;
   position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 0;
-  height: 1px;
-  background-color: var(--accentColor);
-  transition: width 0.3s;
+  right: -11px;
+  overflow: hidden;
+  flex-direction: column;
+  min-width: 70px;
+  border-radius: 4px;
+  background-color: var(--dark-gray);
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
-.nav-bar .nav-bar__menu .nav-bar__menu-item a:hover::before {
-  width: 100%;
+.nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__submenu .nav-bar__submenu-item {
+  padding-block: 10px;
+  padding-inline: 15px 25px;
 }
-.nav-bar .nav-bar__menu .nav-bar__menu-item a:visited {
+.nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__submenu .nav-bar__submenu-item:hover {
+  background-color: var(--primaryColor);
+  transition: all 0.2s ease-in-out;
+}
+.nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__submenu .nav-bar__submenu-item:hover a {
+  color: white;
+}
+.nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__submenu .nav-bar__submenu-item a {
+  color: var(--textColor);
+  font-size: var(--regular-font);
+}
+.nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__menu-links {
+  position: relative;
+  font-size: var(--demi-bold);
+  align-self: start;
   color: var(--textColor);
 }
-.nav-bar .nav-bar__menu .nav-bar__menu-item a:hover {
+.nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__menu-links:hover {
   color: var(--accentColor);
-}/*# sourceMappingURL=header.css.map */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

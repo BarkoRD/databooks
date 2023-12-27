@@ -1,0 +1,50 @@
+.clients-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  padding-inline: 3vw;
+  padding-block: 3vh;
+}
+.clients-container .clients-container__title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primaryColor);
+}
+.clients-container .create-client {
+  display: flex;
+  justify-content: space-between;
+}
+.clients-container .create-client .create-client__button {
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--primaryColor);
+  color: var(--bgColor);
+  font-size: var(--medium-font);
+  font-weight: var(--demi-bold);
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.clients-container .create-client .create-client__button:hover {
+  background-color: var(--accentColor);
+}
+.clients-container ul {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+.clients-container ul li {
+  margin-bottom: 20px;
+  background: #f2f2f2;
+  padding: 10px;
+  border-radius: 8px;
+  width: 500px;
+}
+.clients-container ul li canvas {
+  width: 100% !important;
+  height: auto !important;
+}

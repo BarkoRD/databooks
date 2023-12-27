@@ -1,44 +1,187 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="styles/style.css" />
-    <link rel="stylesheet" href="styles/header.css" />
-    <link rel="stylesheet" href="styles/clientes.css" />
-    <title>Capital Wise</title>
-  </head>
 
-  <body>
-    <%- include('header.ejs') %>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/header.css" />
+
+  <link rel="stylesheet" href="styles/Visualizar.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Capital Wise</title>
+</head>
+
+<body>
+  <%- include('header.ejs') %>
     <section class="clients-container">
       <span class="create-client">
-        <h1 class="clients-container__title">Clientes</h1>
-        <a class="create-client__button" href="./crearClientes"
-          >Agrega clientes</a
-        >
+        <h1 class="clients-container__title">Bienvenido a la pestaña de visualizacion</h1>
+        <a class="create-client__button" href="./crearClientes">Agrega clientes</a>
       </span>
 
-      <table class="table">
-        <thead class="table__head">
-          <tr class="">
-            <th class="table__head-title">Razón social</th>
-            <th class="table__head-title">Nombre</th>
-            <th class="table__head-title">Telefono</th>
-            <th class="table__head-title">Correo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% tableitems.forEach((cliente)=>{ %>
-          <tr class="table__row">
-            <td class="table__row-data"><%=cliente.razon_social%></td>
-            <td class="table__row-data"><%=cliente.client_name%></td>
-            <td class="table__row-data"><%=cliente.client_phone%></td>
-            <td class="table__row-data"><%=cliente.email%></td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+      <ul>
+        <li>
+          <canvas id="myChart"></canvas>
+        </li>
+        <li>
+          <canvas id="myChart1"></canvas>
+        </li>
+        <li>
+          <canvas id="myChart2"></canvas>
+        </li>
+        <li>
+          <canvas id="myChart3"></canvas>
+
+        </li>
+      </ul>
     </section>
-  </body>
+    <script>
+      var ctx = document.getElementById('myChart').getContext('2d');
+      var ctx1 = document.getElementById('myChart1').getContext('2d');
+      var ctx2 = document.getElementById('myChart2').getContext('2d');
+      var ctx3 = document.getElementById('myChart3').getContext('2d');
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      var myChart1 = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      var myChart2 = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      var myChart3 = new Chart(ctx3, {
+        type: 'bar',
+        data: {
+          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+          datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.2)',
+              'rgba(54, 162, 235, 0.2)',
+              'rgba(255, 206, 86, 0.2)',
+              'rgba(75, 192, 192, 0.2)',
+              'rgba(153, 102, 255, 0.2)',
+              'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+    </script>
+</body>
+
 </html>
