@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/header.css" />
+  <link rel="stylesheet" href="styles/ingresos.css" />
+  <title>Capital Wise</title>
+</head>
+
+<body>
+  <%- include('header.ejs') %>
+    <main>
+      <h1 class="title">Agregar un nuevo Ingreso</h1>
+      <form class="new-client" method="POST" action="/crearingresos" autocomplete="off">
+        <% if (error) %>
+          <p class="error">
+            <%= error %>
+          </p>
+          <select name="etiqueta_id" class="select" id="ingresoselect" required>
+            <option value="" class="default-option">Etiqueta</option>
+            <% etiquetas.forEach(e=> { %>
+              <option value="<%= e.id %>">
+                <%= e.nombre %>
+              </option>
+              <% }) %>
+                <option value="custom">Agregar nueva etiqueta...</option>
+          </select>
+          <div class="newtag-input-container">
+          <input type="text" id="custom-tag" style="display:none;"
+            placeholder="Escribe tu etiqueta">
+            <button type="button" id="save-continue-btn" style="display:none;">Guardar y continuar</button>
+          </div>
+          <input class="new-client__input" type="text" name="descripcion" id="product_description" required
+            placeholder="Descripción" />
+          <input class="new-client__input" type="number" name="credito" id="cost" placeholder="Credito" />
+          <input class="new-client__input" type="date" name="fecha" id="fecha" />
+          <div class="new-client__buttons">
+            <input class="new-client__button" type="submit" id="ingresobutton__agregar" name="action" value="Agregar" />
+            <input class="new-client__button" type="submit" id="ingresobutton__continuar" name="action" value="Guardar y continuar" />
+          </div>
+      </form>
+    </main>
+
+    <script src="./javascript/main.js?<%= Math.random() %>"></script>
+</body>
+
+</html>

@@ -3,17 +3,18 @@
     flex-direction: column;
     row-gap: 1rem;
     padding-inline: 3vw;
-    padding-block: 3vh;
-
-    .clients-container__title {
-        font-size: 2rem;
-        font-weight: 600;
-        color: var(--primaryColor);
-    }
-
+    padding-top: 20px;
     .create-client {
         display: flex;
         justify-content: space-between;
+        margin: auto;
+
+        .clients-container__title {
+            margin-bottom: 30px;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primaryColor);
+        }
 
         .create-client__button {
             text-decoration: none;
@@ -54,6 +55,10 @@
                 width: 100% !important;
                 height: auto !important;
             }
+        }
+
+        #chart1{
+            width: 300px;
         }
     }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 27-12-2023 a las 16:13:13
+-- Tiempo de generación: 30-12-2023 a las 02:02:17
 -- Versión del servidor: 8.0.31
 -- Versión de PHP: 8.0.26
 
@@ -31,7 +31,27 @@ DROP TABLE IF EXISTS `etiquetas`;
 CREATE TABLE IF NOT EXISTS `etiquetas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+  `tipo` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `etiquetas_nombre_unique` (`nombre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `extenos`
+--
+
+DROP TABLE IF EXISTS `extenos`;
+CREATE TABLE IF NOT EXISTS `extenos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `etiqueta_id` int NOT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `credito` float DEFAULT NULL,
+  `fecha_limite` timestamp NULL DEFAULT NULL,
+  `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_externos-etiqueta_id` (`etiqueta_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -73,6 +93,19 @@ CREATE TABLE IF NOT EXISTS `ingresos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `mail`
+--
+
+DROP TABLE IF EXISTS `mail`;
+CREATE TABLE IF NOT EXISTS `mail` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `mail` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `medios_de_pago`
 --
 
@@ -81,19 +114,61 @@ CREATE TABLE IF NOT EXISTS `medios_de_pago` (
   `id` int NOT NULL AUTO_INCREMENT,
   `medio` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `medios_de_pago`
+-- Estructura de tabla para la tabla `notificaciones`
 --
 
-INSERT INTO `medios_de_pago` (`id`, `medio`) VALUES
-(1, 'efectivo'),
-(2, 'tarjeta'),
-(3, 'transferencia'),
-(4, 'paypal'),
-(5, 'criptomoneda'),
-(6, 'otro');
+DROP TABLE IF EXISTS `notificaciones`;
+CREATE TABLE IF NOT EXISTS `notificaciones` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `extra_message` varchar(255) DEFAULT NULL,
+  `mail_id` int NOT NULL,
+  `propia_id` int DEFAULT NULL,
+  `externa_id` int DEFAULT NULL,
+  `recurrencia_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_notificaciones-mail_id` (`mail_id`),
+  KEY `fk_notificaciones-propia_id` (`propia_id`),
+  KEY `fk_notificaciones-externa_id` (`externa_id`),
+  KEY `fk_notificaciones-recurrencia_id` (`recurrencia_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `propias`
+--
+
+DROP TABLE IF EXISTS `propias`;
+CREATE TABLE IF NOT EXISTS `propias` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `etiqueta_id` int NOT NULL,
+  `descripcion` varchar(255) DEFAULT NULL,
+  `credito` float DEFAULT NULL,
+  `recurrencia_id` int NOT NULL,
+  `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `plazos` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_propias-etiqueta_id` (`etiqueta_id`),
+  KEY `fk_propias-recurrencia_id` (`recurrencia_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `recurrencia`
+--
+
+DROP TABLE IF EXISTS `recurrencia`;
+CREATE TABLE IF NOT EXISTS `recurrencia` (
+  `id` int NOT NULL,
+  `recurrencia` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -108,18 +183,17 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `pass` varchar(20) DEFAULT NULL,
   `balance` float DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`id`, `username`, `pass`, `balance`) VALUES
-(1, 'admin', 'admin', 0);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `extenos`
+--
+ALTER TABLE `extenos`
+  ADD CONSTRAINT `fk_externos-etiqueta_id` FOREIGN KEY (`etiqueta_id`) REFERENCES `etiquetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `gastos`
@@ -133,6 +207,22 @@ ALTER TABLE `gastos`
 --
 ALTER TABLE `ingresos`
   ADD CONSTRAINT `fk_ingresos-etiqueta_id` FOREIGN KEY (`etiqueta_id`) REFERENCES `etiquetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `notificaciones`
+--
+ALTER TABLE `notificaciones`
+  ADD CONSTRAINT `fk_notificaciones-externa_id` FOREIGN KEY (`externa_id`) REFERENCES `extenos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_notificaciones-mail_id` FOREIGN KEY (`mail_id`) REFERENCES `mail` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_notificaciones-propia_id` FOREIGN KEY (`propia_id`) REFERENCES `propias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_notificaciones-recurrencia_id` FOREIGN KEY (`recurrencia_id`) REFERENCES `recurrencia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `propias`
+--
+ALTER TABLE `propias`
+  ADD CONSTRAINT `fk_propias-etiqueta_id` FOREIGN KEY (`etiqueta_id`) REFERENCES `etiquetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_propias-recurrencia_id` FOREIGN KEY (`recurrencia_id`) REFERENCES `recurrencia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/header.css" />
+  <link rel="stylesheet" href="styles/Visualizar.css" />
+  <link rel="stylesheet" href="styles/resumen.css?<%= Math.random() %>" />
+
+  <title>Capital Wise</title>
+</head>
+
+<body>
+  <%- include('header.ejs') %>
+  <%- include('resumen.ejs') %>
+    <section class="clients-container">
+      <span class="create-client">
+        <h1 class="clients-container__title">Bienvenido a la pestaña de visualizacion</h1>
+      </span>
+
+      <ul>
+        <li>
+          <canvas id="myChart"></canvas>
+        </li>
+        <li id="chart1">
+          <canvas id="myChart1"></canvas>
+        </li>
+        <li>
+          <canvas id="myChart2"></canvas>
+        </li>
+
+      </ul>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <script src="./javascript/graficas.js"></script>
+    <script src="./javascript/global.js"></script>
+
+  </body>
+
+</html>

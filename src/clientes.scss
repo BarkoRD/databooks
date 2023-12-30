@@ -4,17 +4,17 @@
     row-gap: 1rem;
     padding-inline: 3vw;
     padding-block: 3vh;
-
+  
     .clients-container__title {
         font-size: 2rem;
         font-weight: 600;
         color: var(--primaryColor);
     }
-
+  
     .create-client {
         display: flex;
         justify-content: space-between;
-
+  
         .create-client__button {
             text-decoration: none;
             padding: 0.5rem 1rem;
@@ -26,34 +26,50 @@
             font-weight: var(--demi-bold);
             cursor: pointer;
             transition: background-color 0.3s;
-
+  
             &:hover {
                 background-color: var(--accentColor);
             }
         }
     }
-
-
-    ul {
-        list-style-type: none;
-        padding: 0;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-around;
-       
+  
+    .table {
         width: 100%;
-
-        li {
-          
-            margin-bottom: 20px;
-            background: #f2f2f2;
-            padding: 10px;
-            border-radius: 8px;
-            width: 500px;
-            canvas {
-                width: 100% !important;
-                height: auto !important;
+        border: 1px solid var(--primaryColor);
+        border-radius: 8px;
+        padding: 2px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  
+        .table__head {
+            background-color: var(--primaryColor);
+            color: var(--bgColor);
+            font-size: var(--medium-font);
+            font-weight: var(--demi-bold);
+            cursor: default;
+            user-select: none;
+  
+            .table__head-title {
+                padding: 0.5rem 1rem;
+                text-align: left;
+            }
+        }
+        .table__row {
+            padding: 0.5rem 1rem;
+            font-size: var(--medium-font);
+            cursor: text;
+            transition: background-color 0.3s;
+  
+            &:nth-child(even) {
+                background-color: var(--bgColor);
+            }
+            &:hover {
+                background-color: var(--dark-gray);
+            }
+            .table__row-data {
+                padding: 0.5rem 1rem;
+                border: .5px solid #55555550;
             }
         }
     }
-}
+  }

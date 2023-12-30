@@ -1,0 +1,114 @@
+.clients-container {
+
+    .table {
+
+        .table__row {
+            cursor: pointer;
+        }
+    }
+}
+
+.modal {
+    .modal__container {
+
+        background-color: #388d79;
+        padding: 20px 0px 30px 20px;
+        border-radius: 15px;
+
+        .modal__title {
+            font-size: 40px;
+            font-weight: bold;
+            color: #e2e2e2;
+        }
+
+        .modal__content {
+            font-size: 18px;
+            font-weight: bold;
+            color: #c7c7c7;
+
+            .modal__item {
+                margin-block: 10px;
+                font-size: 20px;
+                font-weight: normal;
+                color: #e2e2e2;
+
+                span {
+                    font-weight: bold;
+                    color: #bcbcbc;
+                }
+
+            }
+        }
+
+        .buttons__container {
+
+            margin-top: 20px;
+
+            .modal__button {
+                margin-inline: 7px;
+                text-decoration: none;
+                padding: 0.5rem 1rem;
+                border: none;
+                border-radius: 5px;
+                font-size: var(--medium-font);
+                cursor: pointer;
+                transition: background-color 0.3s;
+
+
+            }
+
+            .modal__close {
+                background-color: #e2e2e2;
+                color: 11d6a8;
+
+                &:hover {
+                    background-color: #b52323;
+                    color: #e2e2e2;
+                }
+            }
+
+            .modal__update {
+
+                background-color: #00788a;
+                color: 11d6a8;
+
+                &:hover {
+                    background-color: var(--accentColor);
+                    color: #e2e2e2;
+                }
+            }
+
+            .marcar__pagado {
+                background-color: #07cd1b;
+                color: #fff;
+
+                &:hover {
+                    background-color: var(--accentColor);
+                    color: #000000;
+                }
+            }
+
+        }
+
+    }
+
+
+}
+
+.red {
+    color: #b52323;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn .3s ease-in;
+}

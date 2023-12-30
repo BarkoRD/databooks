@@ -1,0 +1,45 @@
+.notificaciones__container{
+    display: flex;
+    width: 100%;
+    height: 40vh;
+    padding: 25px;
+
+    .notificacion{
+        
+        border-radius: 15px;
+        background-color: #3300e998;
+        width: 29vw;
+        height: 25vh;
+        display: flex;
+
+        &:hover{
+            opacity: 0.8;;
+        }
+        
+
+    }
+
+    .addnotificacion{
+        border-radius: 15px;
+        background-color: #00000098;
+        border: 5px solid #a6a6a6; 
+        width: 29vw;
+        height: 25vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover{
+            opacity: 0.8;;
+        }
+        svg{
+            height: 75px;
+            fill: white;
+        }
+
+    }
+
+    .marginnoti{
+        margin: 20px;
+    }
+}

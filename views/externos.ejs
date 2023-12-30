@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/header.css" />
+  <link rel="stylesheet" href="styles/clientes.css" />
+  <link rel="stylesheet" href="styles/resumen.css?<%= Math.random() %>" />
+
+  <title>Data Books</title>
+</head>
+
+<body>
+  <%- include('header.ejs') %>
+    <%- include('resumen.ejs') %>
+      <section class="clients-container">
+        <span class="create-client">
+          <h1 class="clients-container__title">Ingresos</h1>
+          <a class="create-client__button" href="./crearGastos">Agregar gastos</a>
+        </span>
+        <table class="table">
+          <thead class="table__head">
+            <tr class="">
+              <th class="table__head-title">Etiqueta</th>
+              <th class="table__head-title">Descripcion</th>
+              <th class="table__head-title">Debito</th>
+              <th class="table__head-title">medio</th>
+              <th class="table__head-title">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% tableitems.forEach((products)=> { %>
+              <tr class="table__row">
+                <td class="table__row-data">
+                  <%= products.nombre %>
+                </td>
+                <td class="table__row-data">
+                  <%= products.descripcion %>
+                </td>
+                <td class="table__row-data">
+                  <%= products.debito %>
+                </td>
+                <td class="table__row-data">
+                  <%= products.medio %>
+                </td>
+                <td class="table__row-data">
+                  <%= new Date (products.fecha).toLocaleDateString() %>
+                </td>
+              </tr>
+              <% }) %>
+          </tbody>
+        </table>
+      </section>
+      <script src="./javascript/global.js"></script>
+</body>
+
+</html>

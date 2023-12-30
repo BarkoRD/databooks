@@ -3,16 +3,18 @@
   flex-direction: column;
   row-gap: 1rem;
   padding-inline: 3vw;
-  padding-block: 3vh;
-}
-.clients-container .clients-container__title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: var(--primaryColor);
+  padding-top: 20px;
 }
 .clients-container .create-client {
   display: flex;
   justify-content: space-between;
+  margin: auto;
+}
+.clients-container .create-client .clients-container__title {
+  margin-bottom: 30px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--primaryColor);
 }
 .clients-container .create-client .create-client__button {
   text-decoration: none;
@@ -47,4 +49,7 @@
 .clients-container ul li canvas {
   width: 100% !important;
   height: auto !important;
+}
+.clients-container ul #chart1 {
+  width: 300px;
 }

@@ -95,12 +95,13 @@ main {
 .new-client #save-continue-btn:hover {
   background-color: #45a049;
 }
-.new-client .new-client__buttons {
+
+.new-client__buttons {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.new-client .new-client__buttons .new-client__button {
+.new-client__buttons .new-client__button {
   padding: 10px 20px;
   border: 1px solid var(--accentColor);
   font-weight: bold;
@@ -111,15 +112,15 @@ main {
   background-color: var(--accentColor);
   color: white;
 }
-.new-client .new-client__buttons .new-client__button:hover {
+.new-client__buttons .new-client__button:hover {
   background-color: white;
   color: var(--accentColor);
 }
-.new-client .new-client__buttons .new-client__button:first-child {
+.new-client__buttons .new-client__button:first-child {
   background-color: white;
   color: var(--accentColor);
 }
-.new-client .new-client__buttons .new-client__button:first-child:hover {
+.new-client__buttons .new-client__button:first-child:hover {
   color: white;
   background-color: var(--accentColor);
 }

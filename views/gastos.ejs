@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="styles/style.css" />
   <link rel="stylesheet" href="styles/header.css" />
   <link rel="stylesheet" href="styles/clientes.css" />
-  <link rel="stylesheet" href="styles/resumen.css?<%= Math.random() %>" /> 
+  <link rel="stylesheet" href="styles/resumen.css?<%= Math.random() %>" />
 
   <title>Data Books</title>
 </head>
@@ -18,7 +18,7 @@
       <section class="clients-container">
         <span class="create-client">
           <h1 class="clients-container__title">Ingresos</h1>
-          <a class="create-client__button" href="./crearingresos">Agregar Ingreso</a>
+          <a class="create-client__button" href="./crearGastos">Agregar gastos</a>
         </span>
         <table class="table">
           <thead class="table__head">
@@ -26,18 +26,17 @@
               <th class="table__head-title">Etiqueta</th>
               <th class="table__head-title">Descripcion</th>
               <th class="table__head-title">Debito</th>
+              <th class="table__head-title">medio</th>
               <th class="table__head-title">Fecha</th>
             </tr>
           </thead>
-          <tbody>
-
-          </tbody>
+          <tbody></tbody>
         </table>
       </section>
       <script>
         const table = document.querySelector('.table tbody')
         let sortOrder = true
-        const data = fetch('/tabla1').then(res => res.json())
+        const data = fetch('/tabla2').then(res => res.json())
         data.then(res => {
           sorted(table, res, '', false, false)
         })
@@ -52,8 +51,6 @@
               sort ? obj.sort((a, b) => a[sortBy] - b[sortBy]) : obj.sort((a, b) => b[sortBy] - a[sortBy])
             else
               sort ? obj.sort((a, b) => a[sortBy].localeCompare(b[sortBy])) : obj.sort((a, b) => b[sortBy].localeCompare(a[sortBy]))
-            
-            
           }
           obj.forEach(element => {
             table.innerHTML += `
@@ -65,7 +62,10 @@
               ${element.descripcion} 
               </td>
               <td class="table__row-data">
-                 ${element.credito} 
+                 ${element.debito} 
+              </td>
+              <td class="table__row-data">
+                 ${element.medio}
               </td>
               <td class="table__row-data">
                  ${new Date (element.fecha).toLocaleDateString()}
@@ -88,10 +88,15 @@ thead[1].addEventListener('click', () => {
 })
 thead[2].addEventListener('click', () => { 
   data.then(res => {
-    sorted(table, res, 'credito', sortOrder)
+    sorted(table, res, 'debito', sortOrder)
   })
 })
 thead[3].addEventListener('click', () => {
+  data.then(res => {
+    sorted(table, res, 'medio', sortOrder)
+  })
+})
+thead[4].addEventListener('click', () => {
   data.then(res => {
     sorted(table, res, 'fecha', sortOrder)
   })
@@ -99,6 +104,6 @@ thead[3].addEventListener('click', () => {
 
 
       </script>
-      <script src="./javascript/global.js"></script>
+<script src="./javascript/global.js"></script>
 </body>
 </html>

@@ -18,3 +18,7 @@
   box-sizing: border-box;
   font-family: "Nunito Sans", sans-serif;
 }
+
+.red {
+  color: #b52323 !important;
+}

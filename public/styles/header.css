@@ -81,10 +81,6 @@
   transition: all 0.2s ease-in-out;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
-.nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__submenu .nav-bar__submenu-item {
-  padding-block: 10px;
-  padding-inline: 15px 25px;
-}
 .nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__submenu .nav-bar__submenu-item:hover {
   background-color: var(--primaryColor);
   transition: all 0.2s ease-in-out;
@@ -93,6 +89,8 @@
   color: white;
 }
 .nav-bar .nav-bar__menu .nav-bar__menu-item .nav-bar__submenu .nav-bar__submenu-item a {
+  padding-block: 10px;
+  padding-inline: 15px 25px;
   color: var(--textColor);
   font-size: var(--regular-font);
 }

@@ -1,0 +1,36 @@
+.notificaciones__container {
+  display: flex;
+  width: 100%;
+  height: 40vh;
+  padding: 25px;
+}
+.notificaciones__container .notificacion {
+  border-radius: 15px;
+  background-color: rgba(51, 0, 233, 0.5960784314);
+  width: 29vw;
+  height: 25vh;
+  display: flex;
+}
+.notificaciones__container .notificacion:hover {
+  opacity: 0.8;
+}
+.notificaciones__container .addnotificacion {
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.5960784314);
+  border: 5px solid #a6a6a6;
+  width: 29vw;
+  height: 25vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.notificaciones__container .addnotificacion:hover {
+  opacity: 0.8;
+}
+.notificaciones__container .addnotificacion svg {
+  height: 75px;
+  fill: white;
+}
+.notificaciones__container .marginnoti {
+  margin: 20px;
+}

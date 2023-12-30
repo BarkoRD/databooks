@@ -6,40 +6,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles/style.css" />
   <link rel="stylesheet" href="styles/header.css" />
-  <link rel="stylesheet" href="styles/crearCliente.css" />
+  <link rel="stylesheet" href="styles/ingresos.css" />
   <title>Capital Wise</title>
 </head>
 
 <body>
   <%- include('header.ejs') %>
     <main>
-      <h1 class="title">Agrega un nuevo Gasto</h1>
-      <form class="new-client" method="POST" action="/crearProductos" autocomplete="off">
+      <h1 class="title">Agregar nueva deuda</h1>
+      <form class="new-client" method="POST" action="/creardeuda" autocomplete="off">
         <% if (error) %>
           <p class="error">
             <%= error %>
           </p>
-          <select name="supplier_rnc" class="select" required onchange="checkForCustomTag(this);">
+          <select name="etiqueta_id" class="select" id="ingresoselect" required>
             <option value="" class="default-option">Etiqueta</option>
-            <% suppliers.forEach(supplier=> { %>
-              <option value="<%= supplier.rnc %>">
-                <%= supplier.supplier_name %>
+            <% etiquetas.forEach(e=> { %>
+              <option value="<%= e.id %>">
+                <%= e.nombre %>
               </option>
               <% }) %>
                 <option value="custom">Agregar nueva etiqueta...</option>
           </select>
           <div class="newtag-input-container">
-          <input type="text" id="custom-tag" style="display:none;" onblur="addCustomTag(this);"
-            placeholder="Escribe tu etiqueta">
+            <input type="text" id="custom-tag" style="display:none;" placeholder="Escribe tu etiqueta">
             <button type="button" id="save-continue-btn" style="display:none;">Guardar y continuar</button>
           </div>
-
-          <input class="new-client__input" type="text" name="product_description" id="product_description" required
-            placeholder="Descripción" />
-          <input class="new-client__input" type="number" name="cost" id="cost" placeholder="Debito" />
-          <input class="new-client__input" type="text" name="product_name" id="product_name" required
-            placeholder="Medio de Pago" />
-          <input class="new-client__input" type="date" name="fecha" id="fecha" />
+          <input class="new-client__input" type="text" name="descripcion" id="product_description" required
+          placeholder="Descripción" />
+          <input class="new-client__input" type="number" name="credito" id="cost" placeholder="Credito" />
+          <select name="recurrencia_id" class="select" id="ingresoselect" required>
+            <option value="1">Semanal</option>
+            <option value="2">Quincenal</option>
+            <option value="3">Mensual</option>
+            <option value="4">Otro</option>
+          </select>
+          <input class="new-client__input" type="date" name="fecha" id="fecha" /> <!-- fecha del primer pago -->
           <div class="new-client__buttons">
             <input class="new-client__button" type="submit" name="action" value="Agregar" />
             <input class="new-client__button" type="submit" name="action" value="Guardar y continuar" />

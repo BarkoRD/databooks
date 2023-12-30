@@ -71,7 +71,6 @@ main {
         }
     }
 
-
     #custom-tag {
         padding: 0.5rem 1rem;
         margin-right: 0.5rem; // Añadido margen a la derecha
@@ -105,6 +104,8 @@ main {
           background-color: #45a049; // Oscurecer el botón al pasar el cursor
         }
       }
+
+    }
 
     .new-client__buttons {
         width: 100%;
@@ -140,4 +141,3 @@ main {
             }
         }
     }
-}
