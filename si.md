@@ -1,7 +1,8 @@
 
-
-
-
+nuevaEtiqueta -> nuevoIngreso (no funciona)
+arreglar filtro mes
+"Table 'databook2.medios_de_pago' doesn't exist" --> get en crearGastos
+post de creardeudaexterna hace insert en propios
 
 
 

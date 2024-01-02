@@ -37,13 +37,13 @@
       <script>
         const table = document.querySelector('.table tbody')
         let sortOrder = true
-        const data = fetch('/tabla1').then(res => res.json())
-        data.then(res => {
-          sorted(table, res, '', false, false)
-        })
-        // refactorizando a una funcion
-        // la funcion recibe una tabla HTML, un objeto, una propiedad por la cual
-        //  se va a ordenar y un booleano que indica si se ordena
+        const data = <%- JSON.stringify(result) %>
+        // console.log(data)
+        // const data = fetch('/tabla1').then(res => res.json())
+        // data.then(res => {
+        //   console.log(res)
+        //   sorted(table, res, '', false, false)
+        // })
 
         const sorted = (table, obj, sortBy, sort, will = true) => {
           table.innerHTML = ''
@@ -52,8 +52,6 @@
               sort ? obj.sort((a, b) => a[sortBy] - b[sortBy]) : obj.sort((a, b) => b[sortBy] - a[sortBy])
             else
               sort ? obj.sort((a, b) => a[sortBy].localeCompare(b[sortBy])) : obj.sort((a, b) => b[sortBy].localeCompare(a[sortBy]))
-            
-            
           }
           obj.forEach(element => {
             table.innerHTML += `
@@ -75,28 +73,14 @@
           sortOrder = !sortOrder
 }
 
-const thead = document.querySelectorAll('.table__head-title')
-thead[0].addEventListener('click', () => {
-  data.then(res => {
-    sorted(table, res, 'nombre', sortOrder)
-  })
-})
-thead[1].addEventListener('click', () => {
-  data.then(res => {
-    sorted(table, res, 'descripcion', sortOrder)
-  })
-})
-thead[2].addEventListener('click', () => { 
-  data.then(res => {
-    sorted(table, res, 'credito', sortOrder)
-  })
-})
-thead[3].addEventListener('click', () => {
-  data.then(res => {
-    sorted(table, res, 'fecha', sortOrder)
-  })
-})
+sorted(table, data, '', false, false)
+      
 
+const thead = document.querySelectorAll('.table__head-title')
+thead[0].addEventListener('click', () => sorted(table, data, 'nombre', sortOrder))
+thead[1].addEventListener('click', () => sorted(table, data, 'descripcion', sortOrder))
+thead[2].addEventListener('click', () => sorted(table, data, 'credito', sortOrder))
+thead[3].addEventListener('click', () => sorted(table, data, 'fecha', sortOrder))
 
       </script>
       <script src="./javascript/global.js"></script>

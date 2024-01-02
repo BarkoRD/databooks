@@ -1,6 +1,6 @@
 const table = document.querySelector('.table tbody')
 let sortOrder = true
-const data = fetch('/tabla3').then(res => res.json())
+const data = fetch('/tabla4').then(res => res.json())
 data.then(res => {
   sorted(table, res, 'fecha', sortOrder)
 })
@@ -78,7 +78,7 @@ const sorted = (table, obj, sortBy, sort) => {
       marcarPagado.addEventListener('click', () => {
         modal.classList.remove('modal--open')
         modal.innerHTML = ''
-        fetch(`/marcarPagadopropia/${id}`, {
+        fetch(`/marcarPagadoexteno/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

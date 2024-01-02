@@ -20,20 +20,18 @@
             <%= error %>
           </p>
           <select name="etiqueta_id" class="select" id="ingresoselect" required>
-            <option value="" class="default-option">Etiqueta</option>
+            <option value="1" class="default-option">desactivado</option>
             <% etiquetas.forEach(e=> { %>
               <option value="<%= e.id %>">
                 <%= e.nombre %>
               </option>
               <% }) %>
-                <option value="custom">Agregar nueva etiqueta...</option>
           </select>
           <div class="newtag-input-container">
             <input type="text" id="custom-tag" style="display:none;"
               placeholder="Escribe tu etiqueta">
               <button  value="<%= lastID %>" type="button" id="save-continue-btn" style="display:none;">Guardar y continuar</button>
             </div>
-
           <input class="new-client__input" type="text" name="descripcion" id="product_description" required
           placeholder="Descripción" />
           <input class="new-client__input" type="number" name="credito" id="cost" placeholder="Credito" />

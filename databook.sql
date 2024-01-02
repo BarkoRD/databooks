@@ -48,7 +48,6 @@ CREATE TABLE IF NOT EXISTS `extenos` (
   `etiqueta_id` int NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   `credito` float DEFAULT NULL,
-  `fecha_limite` timestamp NULL DEFAULT NULL,
   `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `fk_externos-etiqueta_id` (`etiqueta_id`)
@@ -64,13 +63,11 @@ DROP TABLE IF EXISTS `gastos`;
 CREATE TABLE IF NOT EXISTS `gastos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `etiqueta_id` int NOT NULL,
-  `medio_id` int NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   `debito` float DEFAULT NULL,
   `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `fk_gastos-etiqueta_id` (`etiqueta_id`),
-  KEY `fk_gastos-medio_id` (`medio_id`)
+  KEY `fk_gastos-etiqueta_id` (`etiqueta_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -106,19 +103,6 @@ CREATE TABLE IF NOT EXISTS `mail` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `medios_de_pago`
---
-
-DROP TABLE IF EXISTS `medios_de_pago`;
-CREATE TABLE IF NOT EXISTS `medios_de_pago` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `medio` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `notificaciones`
 --
 
@@ -129,12 +113,10 @@ CREATE TABLE IF NOT EXISTS `notificaciones` (
   `mail_id` int NOT NULL,
   `propia_id` int DEFAULT NULL,
   `externa_id` int DEFAULT NULL,
-  `recurrencia_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_notificaciones-mail_id` (`mail_id`),
   KEY `fk_notificaciones-propia_id` (`propia_id`),
-  KEY `fk_notificaciones-externa_id` (`externa_id`),
-  KEY `fk_notificaciones-recurrencia_id` (`recurrencia_id`)
+  KEY `fk_notificaciones-externa_id` (`externa_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -149,26 +131,9 @@ CREATE TABLE IF NOT EXISTS `propias` (
   `etiqueta_id` int NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   `credito` float DEFAULT NULL,
-  `saldo_faltante` float DEFAULT NULL,
-  `recurrencia_id` int NOT NULL,
   `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `plazos` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_propias-etiqueta_id` (`etiqueta_id`),
-  KEY `fk_propias-recurrencia_id` (`recurrencia_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `recurrencia`
---
-
-DROP TABLE IF EXISTS `recurrencia`;
-CREATE TABLE IF NOT EXISTS `recurrencia` (
-  `id` int NOT NULL,
-  `recurrencia` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  KEY `fk_propias-etiqueta_id` (`etiqueta_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -201,7 +166,6 @@ ALTER TABLE `extenos`
 --
 ALTER TABLE `gastos`
   ADD CONSTRAINT `fk_gastos-etiqueta_id` FOREIGN KEY (`etiqueta_id`) REFERENCES `etiquetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_gastos-medio_id` FOREIGN KEY (`medio_id`) REFERENCES `medios_de_pago` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `ingresos`
@@ -215,15 +179,13 @@ ALTER TABLE `ingresos`
 ALTER TABLE `notificaciones`
   ADD CONSTRAINT `fk_notificaciones-externa_id` FOREIGN KEY (`externa_id`) REFERENCES `extenos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_notificaciones-mail_id` FOREIGN KEY (`mail_id`) REFERENCES `mail` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_notificaciones-propia_id` FOREIGN KEY (`propia_id`) REFERENCES `propias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_notificaciones-recurrencia_id` FOREIGN KEY (`recurrencia_id`) REFERENCES `recurrencia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_notificaciones-propia_id` FOREIGN KEY (`propia_id`) REFERENCES `propias` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `propias`
 --
 ALTER TABLE `propias`
   ADD CONSTRAINT `fk_propias-etiqueta_id` FOREIGN KEY (`etiqueta_id`) REFERENCES `etiquetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_propias-recurrencia_id` FOREIGN KEY (`recurrencia_id`) REFERENCES `recurrencia` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -5,7 +5,7 @@ const defalutConfig = {
   user: 'root',
   port: 3306,
   password: '',
-  database: 'dataBook'
+  database: 'dataBook2'
 }
 const pool = await mysql.createConnection(defalutConfig)
 

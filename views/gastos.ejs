@@ -26,7 +26,6 @@
               <th class="table__head-title">Etiqueta</th>
               <th class="table__head-title">Descripcion</th>
               <th class="table__head-title">Debito</th>
-              <th class="table__head-title">medio</th>
               <th class="table__head-title">Fecha</th>
             </tr>
           </thead>
@@ -65,9 +64,6 @@
                  ${element.debito} 
               </td>
               <td class="table__row-data">
-                 ${element.medio}
-              </td>
-              <td class="table__row-data">
                  ${new Date (element.fecha).toLocaleDateString()}
               </td>
               </tr>`
@@ -92,11 +88,6 @@ thead[2].addEventListener('click', () => {
   })
 })
 thead[3].addEventListener('click', () => {
-  data.then(res => {
-    sorted(table, res, 'medio', sortOrder)
-  })
-})
-thead[4].addEventListener('click', () => {
   data.then(res => {
     sorted(table, res, 'fecha', sortOrder)
   })
