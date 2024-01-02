@@ -3,29 +3,26 @@
 }
 
 .modal .modal__container {
-  background-color: #388d79;
   padding: 20px 0px 30px 20px;
   border-radius: 15px;
 }
 .modal .modal__container .modal__title {
   font-size: 40px;
   font-weight: bold;
-  color: #e2e2e2;
 }
 .modal .modal__container .modal__content {
   font-size: 18px;
   font-weight: bold;
-  color: #c7c7c7;
 }
 .modal .modal__container .modal__content .modal__item {
   margin-block: 10px;
   font-size: 20px;
   font-weight: normal;
-  color: #e2e2e2;
+  color: #696969;
 }
 .modal .modal__container .modal__content .modal__item span {
   font-weight: bold;
-  color: #bcbcbc;
+  color: #404040;
 }
 .modal .modal__container .buttons__container {
   margin-top: 20px;
@@ -48,6 +45,14 @@
   background-color: #b52323;
   color: #e2e2e2;
 }
+.modal .modal__container .buttons__container .marcar__finiquitar {
+  background-color: #850091;
+  color: #fff;
+}
+.modal .modal__container .buttons__container .marcar__finiquitar:hover {
+  background-color: #ffee00;
+  color: #000;
+}
 .modal .modal__container .buttons__container .modal__update {
   background-color: #00788a;
   color: 11d6a8;
@@ -63,10 +68,6 @@
 .modal .modal__container .buttons__container .marcar__pagado:hover {
   background-color: var(--accentColor);
   color: #000000;
-}
-
-.red {
-  color: #b52323;
 }
 
 @keyframes fadeIn {

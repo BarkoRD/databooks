@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/header.css" />
+  <link rel="stylesheet" href="styles/clientes.css" />
+  <link rel="stylesheet" href="styles/propios.css?<%= Math.random() %>" />
+
+  <link rel="stylesheet" href="styles/resumen.css?<%= Math.random() %>" />
+
+  <title>Data Books</title>
+</head>
+
+<body>
+  <%- include('header.ejs') %>
+    <%- include('resumen.ejs') %>
+      <section class="clients-container">
+        <span class="create-client">
+          <h1 class="clients-container__title">Deudas personales</h1>
+          <a class="create-client__button" href="./creardeuda">Agregar nueva deuda</a>
+        </span>
+        <table class="table">
+          <thead class="table__head">
+            <tr class="">
+              <th class="table__head-title">Etiqueta</th>
+              <th class="table__head-title">Descripcion</th>
+              <th class="table__head-title">Debito</th>
+              <th class="table__head-title">Fecha</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% tableitems.forEach((e)=> { %>
+              <tr class="table__row" id="<%= e.id%>">
+                <td class="table__row-data">
+                  <%= e.nombre %>
+                </td>
+                <td class="table__row-data">
+                  <%= e.descripcion %>
+                </td>
+                <td class="table__row-data">
+                  <%= e.credito %>
+                </td>
+                <td class="table__row-data">
+                  <%= new Date (e.fecha).toLocaleDateString() %>
+                </td>
+              </tr>
+              <div class="modal" id="modal<%= e.id%>"></div>
+              <% }) %>
+            </tbody>
+        </table>
+      </section>
+     
+    <script src="./javascript/global.js"></script>
+    <script src="./javascript/propios.js"></script>
+    
+    
+</body>
+
+</html>

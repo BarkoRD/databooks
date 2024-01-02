@@ -149,6 +149,7 @@ CREATE TABLE IF NOT EXISTS `propias` (
   `etiqueta_id` int NOT NULL,
   `descripcion` varchar(255) DEFAULT NULL,
   `credito` float DEFAULT NULL,
+  `saldo_faltante` float DEFAULT NULL,
   `recurrencia_id` int NOT NULL,
   `fecha` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `plazos` int DEFAULT NULL,

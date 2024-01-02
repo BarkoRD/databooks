@@ -16,14 +16,17 @@ ponerle hover y las flechitas para ordenar los ingresos
 
 agregar los filtros a gastos, creditos propios, creditos externos
 
-agregar que sea clicleable gastos
+ponerle pointer a las tablas
 
 --------------------ricardo
 
-en vez de los dos cosa que tengo en resumen me refiero al del medio y al de laizquierda tenga el balance
-de tus deudas a pagar el proximo mes y en el de la derecha el total del dinero que te deben
+agregar popup de que se agrego un ingreso
 
 boton de finiquitar deuda
+
+hacer codigo de botones guardar/guardarcontinuar de gastos 
+
+que no tenga que ir a avisualizar para que se actualicen los datos de resumen.ejs
 
 hacer los botones actualizar y finiquitar deuda en las opciones de las deudas funcionales
 
@@ -45,3 +48,8 @@ alinear elementos de la pagina para que quede perfectamente cuadrado tanto verti
 crear el "crear deuda tanto propia como externa"
 vincular todos los datos con todo
 crear base de datos de notificaciones
+
+
+BUG ETIQUETAS.
+agregar boton de volver a pagina principal de donde esta el formulario
+decile a adolfo que se ordene automaticamente por fecha por default

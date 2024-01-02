@@ -1,17 +1,126 @@
 <div class="resumen">
-    <div class="resumen__container">
-      <div class="resumen__container__item">
-        <h1 class="resumen__container__item__title">Estado financiero</h1>
-        <p class="resumen__container__item__number" id="balance"><%= balance.balance %>$</p>
+  <div class="resumen__container">
+    <div class="resumen__container__item">
+      <div class="resumen__container__item_header">
+        <h3 class="resumen__container__item__title">Balance</h3>
+        <div class="filtros" id="ingresosTotales">
+            <button class="button filter__button filtersemana">7d</button>
+            <button class="button filter__button filter30">30d</button>
+          <button class="button filter__button filtermes">mes</button>
+          <button class="button filter__button filteryear">año</button>
+          <button class="button filter__button" id="soloingresos">ingresos</button>
+        </div>
       </div>
-      <div class="resumen__container__item">
-        <h1 class="resumen__container__item__title">Deuda total</h1>
-        <p class="resumen__container__item__number" id="ingresos"><%= balance.deudatotal %>$</p>
+      <p class="resumen__container__item__number" id="balance">
+        <%= (credito.reduce((a, b) => a + (b.credito), 0) - debito.reduce((a, b) => a + (b.debito), 0)) %>$  
+      </p>
+ 
     </div>
-    
-      <div class="resumen__container__item">
-        <h1 class="resumen__container__item__title">Ingresos pendientes</h1>
-        <p class="resumen__container__item__number" id="gastos"><%= balance.ingresospendientes %>$</p>
+    <div class="resumen__container__item">
+      <div class="resumen__container__item_header">
+        <h3 class="resumen__container__item__title">Deuda</h3>
+        <div class="filtros" id="deuda">
+          <button class="button filter__button filtersemana">7d</button>
+          <button class="button filter__button filter30">30d</button>
+          <button class="button filter__button filtermes">mes</button>
+          <button class="button filter__button filteryear">año</button>
+        </div>
       </div>
+      <p class="resumen__container__item__number" id="ingresos">
+        <%= deuda.length > 1 ? deuda.reduce((a,b) => a.deuda+b.deuda): deuda[0].deuda %>$
+      </p>
+
+    </div>
+
+    <div class="resumen__container__item">
+      <div class="resumen__container__item_header">
+        <h3 class="resumen__container__item__title">Pendientes</h3>
+        <div class="filtros" id="ingresoPendiente">
+          <button class="button filter__button filtersemana">7d</button>
+          <button class="button filter__button filter30">30d</button>
+          <button class="button filter__button filtermes">mes</button>
+          <button class="button filter__button filteryear">año</button>
+        </div>
+      </div>
+      <p class="resumen__container__item__number" id="gastos">
+        <%= ingresospendientes.length > 1 ? ingresospendientes.reduce((a,b) => a.ingresospendientes+b.ingresospendientes): ingresospendientes[0].ingresospendientes %>$
+      </p>
+
     </div>
   </div>
+</div>
+<script>
+        let credito = <%- JSON.stringify(credito) %>;
+        let debito = <%- JSON.stringify(debito) %>;
+        let deuda = <%- JSON.stringify(deuda) %>;
+        let ingresospendientes = <%- JSON.stringify(ingresospendientes) %>;
+
+        const filter = (container, obj, obj2)=>{
+          let filtered
+          let filtered2
+          container.querySelectorAll('.filter__button').forEach(e =>{
+            
+            e.addEventListener('click', ()=>{
+                let div = container.querySelectorAll('.filter__button')
+                div.forEach(e => e.classList.remove('active'))
+                e.classList.add('active');
+              let filter = e.textContent;
+              if(filter === '7d'){
+                filtered = filtrar(obj, e, 604800000);
+                obj2 ? filtered2 = filtrar(obj2, e, 604800000): null;
+              } else if(filter === 'mes'){
+                filtered = filtrar(obj, e, 2592000000);
+                obj2 ? filtered2 = filtrar(obj2, e, 2592000000): null;
+              } else if(filter === '30d'){
+                filtered = filtrar(obj, e, 2592000000);
+                obj2 ? filtered2 = filtrar(obj2, e, 2592000000): null;
+
+                // filtered = filtrar(obj, e, 2592000000);
+                // obj2 ? filtered2 = filtrar(obj2, e, 2592000000): null;
+              } else if(filter === 'año'){
+                filtered = filtrar(obj, e, 31536000000);
+                obj2 ? filtered2 = filtrar(obj2, e, 31536000000): null;
+              }
+              if(filtered2){
+                const credito = filtered.reduce((a, b) => a + (b[Object.keys(b)[1]]), 0);
+                const debito = filtered2.reduce((a, b) => a + (b.debito), 0);
+                const resultado = credito - debito;
+                container.querySelector('.resumen__container__item__number').textContent = `${resultado}$`
+              }
+              else if (filtered.length === 0){
+                container.querySelector('.resumen__container__item__number').textContent = '0$'
+              } else if(!filtered2){
+                container.querySelector('.resumen__container__item__number').textContent = `${
+                  filtered.length > 1 ? filtered.reduce((a,b) => a + b[Object.keys(b)[1]], 0): filtered[0][Object.keys(filtered[0])[1]]
+                }$`
+              }             
+            })
+          })
+        }
+      filter(document.querySelector('.resumen__container__item'), credito, debito);
+      filter(document.querySelectorAll('.resumen__container__item')[1], deuda);
+      filter(document.querySelectorAll('.resumen__container__item')[2], ingresospendientes);
+
+
+      
+      const filtrar = (obj, e, num) => obj.filter(e => new Date(e.fecha).getTime() > new Date().getTime() - num)
+
+        const soloIngresos = document.getElementById('soloingresos')
+          soloIngresos.addEventListener('click', (e)=>{
+            e.preventDefault()
+           document.querySelector('#balance').innerHTML = `${credito.reduce((a, b) => a + (b.credito), 0)}$`
+      })
+
+
+
+
+
+
+
+</script>
+
+
+<!-- const sumaCredito = filtered.reduce((acumulador, objetoActual) => acumulador + (objetoActual.credito || 0), 0);
+const sumaDebito = filtered2.reduce((acumulador, objetoActual) => acumulador + (objetoActual.debito || 0), 0);
+
+const resultado = sumaCredito - sumaDebito; -->

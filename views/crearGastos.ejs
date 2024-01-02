@@ -45,7 +45,7 @@
           <input class="new-client__input" type="text" name="descripcion" id="product_description" required
             placeholder="Descripción"/>
           <input class="new-client__input" type="number" name="debito" id="cost" placeholder="Credito" />
-          <input class="new-client__input" type="date" name="fecha" id="fecha" />
+          <input class="new-client__input" type="date" max="<%= new Date().toISOString().slice(0,10) %>" name="fecha" id="fecha" />
           <div class="new-client__buttons">
             <input class="new-client__button" type="submit" name="action" value="Agregar" />
             <input class="new-client__button" type="submit" name="action" value="Guardar y continuar" />

@@ -4,56 +4,58 @@
   flex-direction: column;
   margin: 20px auto;
   padding: 20px;
-  background: #e7e7e7; /* Soft background color */
-  border-radius: 8px; /* Rounded corners for the container */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  font-family: "Arial", sans-serif; /* Consistent font family */
+  background: #e7e7e7;
+  border-radius: 8px;
+  font-family: "Arial", sans-serif;
 }
 
 .resumen__container {
   width: 100%;
   display: flex;
   flex-direction: row;
-  align-items: flex-start; /* Align items to start to handle different heights gracefully */
-  justify-content: space-between; /* Space between items for a cleaner look */
-  gap: 20px; /* Spacing between flex items */
+  align-items: flex-start;
+  justify-content: space-between;
 }
-
-.resumen__container__item {
-  margin: 20px;
-  flex-basis: calc(33.333% - 40px); /* Three items per row with spacing */
-  background: #388d79; /* White background for items */
-  border-radius: 4px; /* Rounded corners for items */
-  padding: 20px; /* Padding inside items */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow for items */
+.resumen__container .resumen__container__item {
+  flex-basis: calc(33.333% - 40px);
+  margin: 15px;
+  background: #388d79;
+  border-radius: 4px;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
-.resumen__container__item #balance {
+.resumen__container .resumen__container__item #balance {
   color: #00ff3c;
 }
-
-.resumen__container__item__title {
-  font-size: 24px;
+.resumen__container .resumen__container__item .resumen__container__item_header {
+  gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.resumen__container .resumen__container__item .resumen__container__item_header .resumen__container__item__title {
+  font-size: 16px;
   font-weight: bold;
   margin-bottom: 10px;
-  color: #c7c7c7; /* Dark color for text for better readability */
+  color: #c7c7c7;
 }
-
-.resumen__container__item__number {
-  font-size: 30px;
-  color: #e2e2e2; /* Slightly lighter color for numbers */
-}
-
-/* Button styles */
-.button {
-  padding: 10px 20px;
-  background-color: #005a9c; /* Brand color for primary buttons */
-  color: white;
+.resumen__container .resumen__container__item .resumen__container__item_header .filtros .button {
+  padding: 5px 10px;
+  background-color: #4fb79f;
   border: none;
   border-radius: 4px;
+  font-size: 15px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Transition for interactive elements */
+  transition: background-color 0.3s ease;
 }
-
-.button:hover {
-  background-color: #004080; /* Darker shade on hover */
+.resumen__container .resumen__container__item .resumen__container__item_header .filtros .button:hover {
+  background-color: #004080;
+  color: #e2e2e2;
+}
+.resumen__container .resumen__container__item .resumen__container__item_header .filtros .active {
+  background-color: #004080;
+  color: #e2e2e2;
+}
+.resumen__container .resumen__container__item .resumen__container__item__number {
+  font-size: 30px;
+  color: #e2e2e2;
 }

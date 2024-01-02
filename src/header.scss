@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&display=swap");
+
 :root {
   --primaryColor: #41a58d;
   --secondColor: #c5fcef;
@@ -11,6 +12,7 @@
   --medium-font: 14px;
   --regular-font: 12px;
 }
+
 * {
   margin: 0;
   padding: 0;
@@ -19,6 +21,7 @@
   list-style: none;
   text-decoration: none;
 }
+
 .nav-bar {
   display: flex;
   justify-content: space-between;
@@ -43,6 +46,7 @@
       &:visited {
         color: var(--textColor);
       }
+
       &:hover {
         color: var(--accentColor);
       }
@@ -56,10 +60,30 @@
 
     .nav-bar__menu-item {
       position: relative;
-      font-size: var(--medium-font);
+      font-size: 15px;
       cursor: pointer;
-                
-      img{
+      background-color: #41a58d;
+      padding: 15px;
+      border-radius: 25px;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      &:hover {
+        background-color: #3c947f;
+
+      }
+
+      a {
+        color: var(--textColor);
+
+        &:visited {
+          color: var(--textColor);
+        }
+
+      }
+
+      img {
         height: 1rem;
         transition: all 0.2s ease-in-out;
       }
@@ -70,7 +94,7 @@
           animation: fadeIn 0.2s ease-in-out;
         }
 
-        img{
+        img {
           transform: rotate(180deg);
         }
 
@@ -79,21 +103,26 @@
       .nav-bar__submenu {
         display: none;
         position: absolute;
-        right: -11px;
+        top: 35px;
+        right: -5px;
         overflow: hidden;
         flex-direction: column;
-        min-width: 70px;
+        min-width: 90px;
         border-radius: 4px;
-        background-color: var(--dark-gray);
+        background-color: #41a58d;
         transition: all 0.2s ease-in-out;
         box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        align-items: center;
+
 
         .nav-bar__submenu-item {
-          
-          
-          
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          height: 40px;
+
           &:hover {
-            background-color: var(--primaryColor);
+            background-color: #6a6a6a;
             transition: all 0.2s ease-in-out;
 
             a {
@@ -102,10 +131,15 @@
           }
 
           a {
-            padding-block: 10px;
-            padding-inline: 15px 25px;
             color: var(--textColor);
-            font-size: var(--regular-font);
+            font-size: 14px;
+            width: 100%;
+            text-align: center;
+            line-height: 40px;
+
+            &:visited {
+              color: var(--textColor);
+            }
           }
         }
       }
@@ -128,6 +162,7 @@
   from {
     opacity: 0;
   }
+
   to {
     opacity: 1;
   }

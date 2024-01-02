@@ -1,42 +1,98 @@
-const deudas = document.querySelectorAll('.table__row')
+const table = document.querySelector('.table tbody')
+let sortOrder = true
+const data = fetch('/tabla3').then(res => res.json())
+data.then(res => {
+  sorted(table, res, 'fecha', sortOrder)
+})
 
-deudas.forEach(e => {
-  e.addEventListener('click', () => {
+const sorted = (table, obj, sortBy, sort) => {
+  table.innerHTML = ''
+  if (typeof obj[0][sortBy] === "number")
+    sort ? obj.sort((a, b) => a[sortBy] - b[sortBy]) : obj.sort((a, b) => b[sortBy] - a[sortBy])
+  else
+    sort ? obj.sort((a, b) => a[sortBy].localeCompare(b[sortBy])) : obj.sort((a, b) => b[sortBy].localeCompare(a[sortBy]))
 
-    const id = e.id
-    const tabledata = e.querySelectorAll('.table__row-data')
-    const etiqueta = tabledata[0].textContent;
-    const descripcion = tabledata[1].textContent;
-    const debito = tabledata[2].textContent;
-    const fecha = tabledata[3].textContent;
-    const modal = document.getElementById("modal" + e.id)
 
-    const modals = document.querySelectorAll('.modal');
-    modals.forEach(e => {
-      if(e.id !== id)
-      e.innerHTML = ''
-    });
-    modal.classList.add('modal--open')
-    modal.innerHTML = `
+  obj.forEach(element => {
+    table.innerHTML += `
+<tr class="table__row" id="${element.id}">
+  
+    <td class="table__row-data">
+      ${element.descripcion} 
+      </td>
+      <td class="table__row-data">
+        ${element.credito} 
+        </td>
+        <td class="table__row-data">
+          ${new Date(element.fecha).toLocaleDateString()}
+          </td>
+            </tr>
+            <td colspan="5" class="table__row-data">
+            <div class="modal"  id="modal${element.id}"></div>
+            </td>
+            `
+  })
+  sortOrder = !sortOrder
+
+  const deudas = document.querySelectorAll('.table__row')
+
+  deudas.forEach(e => {
+    e.addEventListener('click', () => {
+      const id = e.id
+      const tabledata = e.querySelectorAll('.table__row-data')
+      const descripcion = tabledata[0].textContent;
+      const debito = tabledata[1].textContent;
+      const fecha = tabledata[2].textContent;
+      const modal = document.getElementById("modal" + id)
+
+      const modals = document.querySelectorAll('.modal');
+      modals.forEach(e => {
+        if (e.id !== id)
+          e.innerHTML = ''
+      });
+
+
+      modal.classList.add('modal--open')
+
+      modal.innerHTML = `
         <div class="modal__container fade-in">
-          <h2 class="modal__title">Saldo faltante <span class="red">${debito}</span> proxima fecha de pago: ${fecha}</h2>
-          <div class="modal__content">
-          <p class="modal__item"><span>Descripcion:</span> ${descripcion}</p>
-          <p class="modal__item"><span>Deuda total:</span> 7500</p>
-            <p class="modal__item"><span>Mensualidad:</span> 500</p>
-            <p class="modal__item"><span>Monto a pagar:</span> ${debito}</p>
-          </div>
-          <div class="buttons__container">
-          <button class="modal__button modal__close" id="modal__close">Cerrar menu</button>
-          <button class="modal__button modal__update" id="modal__close">Actualizar</button>
-          <button class="modal__button marcar__pagado" id="modal__close">Pagar!</button>
-          </div>
+        <h2 class="modal__title"><span>Descripcion:</span> ${descripcion}</h2>
+        <div class="modal__content">
+        <p class="modal__item"><span>Deuda total:</span> ${debito}</p>
         </div>
-      `
-    const cerrarModal = document.querySelector('#modal__close')
-    cerrarModal.addEventListener('click', () => {
-      modal.classList.remove('modal--open')
-      modal.innerHTML = ''
+        <div class="buttons__container">
+        <button class="modal__button modal__close" id="modal__close">Cerrar menu</button>
+        <button class="modal__button modal__update" id="modal__close">Actualizar</button>
+        <button class="modal__button marcar__pagado" id="modal__close">Pagar!</button>
+        <button class="modal__button marcar__finiquitar" id="modal__close">Finiquitar!</button>
+
+        </div>
+        </div>
+        `
+      const cerrarModal = document.querySelector('#modal__close')
+      cerrarModal.addEventListener('click', () => {
+        modal.classList.remove('modal--open')
+        modal.innerHTML = ''
+      })
     })
-  });
+  })
+
+}
+
+const thead = document.querySelectorAll('.table__head-title')
+
+thead[0].addEventListener('click', () => {
+  data.then(res => {
+    sorted(table, res, 'descripcion', sortOrder)
+  })
+})
+thead[1].addEventListener('click', () => {
+  data.then(res => {
+    sorted(table, res, 'credito', sortOrder)
+  })
+})
+thead[2].addEventListener('click', () => {
+  data.then(res => {
+    sorted(table, res, 'fecha', sortOrder)
+  })
 })

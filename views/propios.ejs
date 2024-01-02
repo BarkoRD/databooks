@@ -25,98 +25,17 @@
         <table class="table">
           <thead class="table__head">
             <tr class="">
-              <th class="table__head-title">Etiqueta</th>
               <th class="table__head-title">Descripcion</th>
               <th class="table__head-title">Crédito</th>
               <th class="table__head-title">Fecha</th>
-              <th class="table__head-title">Recurrencia</th>
             </tr>
           </thead>
           <tbody>
           </tbody>
         </table>
       </section>
-     
-    <script src="./javascript/global.js"></script>
-    <script src="./javascript/propios.js"></script>
-    <script>
-      const table = document.querySelector('.table tbody')
-      let sortOrder = true
-      const data = fetch('/tabla3').then(res => res.json())
-      data.then(console.log)
-      console.log('hola')
-      data.then(res => {
-        sorted(table, res, '', false, false)
-      })
-
-      const sorted = (table, obj, sortBy, sort, will = true) => {
-        table.innerHTML = ''
-        if (will){
-          if (typeof obj[0][sortBy] === "number")
-            sort ? obj.sort((a, b) => a[sortBy] - b[sortBy]) : obj.sort((a, b) => b[sortBy] - a[sortBy])
-          else
-            sort ? obj.sort((a, b) => a[sortBy].localeCompare(b[sortBy])) : obj.sort((a, b) => b[sortBy].localeCompare(a[sortBy]))
-          
-          
-        }
-// {
-//     "descripcion": "LOCO YA PARA",
-//     "credito": 5400,
-//     "fecha": "2023-12-30T00:22:50.000Z",
-//     "nombre": "sheesh",
-//     "recurrencia": "Semanal"
-// }
-        obj.forEach(element => {
-          table.innerHTML += `
-          <tr class="table__row">
-            <td class="table__row-data">
-              ${element.nombre}
-            </td>
-            <td class="table__row-data">
-            ${element.descripcion} 
-            </td>
-            <td class="table__row-data">
-               ${element.credito} 
-            </td>
-            <td class="table__row-data">
-               ${new Date (element.fecha).toLocaleDateString()}
-            </td>
-            <td class="table__row-data">
-              ${element.recurrencia}
-            </td>
-            </tr>`
-        })
-        sortOrder = !sortOrder
-}
-
-const thead = document.querySelectorAll('.table__head-title')
-thead[0].addEventListener('click', () => {
-data.then(res => {
-  sorted(table, res, 'nombre', sortOrder)
-})
-})
-thead[1].addEventListener('click', () => {
-data.then(res => {
-  sorted(table, res, 'descripcion', sortOrder)
-})
-})
-thead[2].addEventListener('click', () => { 
-data.then(res => {
-  sorted(table, res, 'credito', sortOrder)
-})
-})
-thead[3].addEventListener('click', () => {
-data.then(res => {
-  sorted(table, res, 'fecha', sortOrder)
-})
-})
-thead[4].addEventListener('click', () => data.then(res => sorted(table, res, 'recurrencia', sortOrder))
-)
-
-
-    </script>
-
-    
+      <script src="./javascript/global.js"></script>
+      <script src="./javascript/propios.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,50 @@
+<div class="resumen">
+  <div class="resumen__container">
+    <div class="resumen__container__item">
+      <div class="resumen__container__item_header">
+        <h3 class="resumen__container__item__title">Estado financiero</h3>
+        <div class="filtros">
+          <button class="filter__button" id="filtersemana">semana</button>
+          <button class="filter__button" id="filtermes">mes</button>
+          <button class="filter__button" id="filter30">30dias</button>
+          <button class="filter__button" id="filteryear">año</button>
+        </div>
+      </div>
+      <p class="resumen__container__item__number" id="balance">
+        <%= balance.balance %>$
+      </p>
+
+    </div>
+    <div class="resumen__container__item">
+      <div class="resumen__container__item_header">
+        <h3 class="resumen__container__item__title">Deuda total</h3>
+        <div class="filtros">
+          <button class="filter__button" id="filtersemana">semana</button>
+          <button class="filter__button" id="filtermes">mes</button>
+          <button class="filter__button" id="filter30">30dias</button>
+          <button class="filter__button" id="filteryear">año</button>
+        </div>
+      </div>
+      <p class="resumen__container__item__number" id="ingresos">
+        <%= balance.deudatotal %>$
+      </p>
+
+    </div>
+
+    <div class="resumen__container__item">
+      <div class="resumen__container__item_header">
+        <h3 class="resumen__container__item__title">Ingresos pendientes</h3>
+        <div class="filtros">
+          <button class="filter__button" id="filtersemana">semana</button>
+          <button class="filter__button" id="filtermes">mes</button>
+          <button class="filter__button" id="filter30">30dias</button>
+          <button class="filter__button" id="filteryear">año</button>
+        </div>
+      </div>
+      <p class="resumen__container__item__number" id="gastos">
+        <%= balance.ingresospendientes %>$
+      </p>
+
+    </div>
+  </div>
+</div>
