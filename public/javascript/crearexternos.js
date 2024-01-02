@@ -4,7 +4,6 @@ formnewingreso.addEventListener('submit', e => {
   e.preventDefault(); // Evita el envío normal del formulario
 
   let action = e.submitter.getAttribute('id') === 'ingresobutton__continuar' ? 'guardarContinuar' : 'agregar';
-
   if (action === 'guardarContinuar') {
     let formData = new FormData(e.target);
     let formObject = {};
@@ -19,6 +18,7 @@ formnewingreso.addEventListener('submit', e => {
     })
     .then(response => {
       e.target.reset();
+      alert("Deuda guardada con exito")
       if (response.headers.get("Content-Type").includes("application/json")) {
         return response.json();
       } else {

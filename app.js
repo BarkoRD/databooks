@@ -179,9 +179,9 @@ app.post("/creardeuda", async (req, res) => {
 
 app.get("/creardeudaexterna", async (_, res) => {
   const [etiquetas] = await pool.query(
-    'SELECT * FROM etiquetas WHERE tipo = "deuda"'
+    'SELECT * FROM etiquetas'
   )
-  res.render("creadeuda", { etiquetas, error: "", lastID: (await lastID()) + 1 })
+  res.render("creadeudaexterna", { etiquetas, error: "", lastID: (await lastID()) + 1 })
 })
 
 app.post("/creardeudaexterna", async (req, res) => {

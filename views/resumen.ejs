@@ -45,7 +45,7 @@
         </div>
       </div>
       <p class="resumen__container__item__number" id="gastos">
-        <%= ingresospendientes.length > 1 ? ingresospendientes.reduce((a,b) => a.ingresospendientes+b.ingresospendientes): ingresospendientes[0].ingresospendientes %>$
+        <%= ingresospendientes.length > 1 ? ingresospendientes.reduce((a, b) => a + b.ingresospendientes, 0): ingresospendientes[0].ingresospendientes %>$
       </p>
 
     </div>
