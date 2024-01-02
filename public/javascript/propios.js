@@ -63,7 +63,6 @@ const sorted = (table, obj, sortBy, sort) => {
         <div class="buttons__container">
         <button class="modal__button modal__close" id="modal__close">Cerrar menu</button>
         <button class="modal__button marcar__pagado" id="modal__close">Marcar Pagado!</button>
-        <button class="modal__button marcar__finiquitar" id="modal__close">Finiquitar!</button>
 
         </div>
         </div>
@@ -92,6 +91,7 @@ const sorted = (table, obj, sortBy, sort) => {
         .catch(error => {
           console.error('Error:', error);
         });
+        location.reload();
         
       })
     })

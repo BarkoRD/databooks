@@ -98,19 +98,19 @@ app.get("/gastos", async (_, res) => {
 
 app.get(/^\/tabla(1|2|3|4)$/, async (req, res) => {
   if (req.params[0] === "1") {
-    const query = `SELECT * FROM ingresos INNER JOIN etiquetas ON ingresos.etiqueta_id = etiquetas.id ORDER BY id DESC`
+    const query = `SELECT * FROM ingresos INNER JOIN etiquetas ON ingresos.etiqueta_id = etiquetas.id`
     const [result] = await pool.query(query)
     res.json(result)
   } else if (req.params[0] === "2") {
-    const query = `SELECT gastos.*, etiquetas.nombre FROM gastos INNER JOIN etiquetas ON gastos.etiqueta_id = etiquetas.id`
+    const query = `SELECT gastos.*, etiquetas.nombre FROM gastos INNER JOIN etiquetas ON gastos.etiqueta_id = etiquetas.id ORDER BY gastos.id DESC`
     const [result] = await pool.query(query)
     res.json(result)
   } else if (req.params[0] === "3") {
-    const query = `SELECT propias.*, etiquetas.nombre FROM propias INNER JOIN etiquetas ON propias.etiqueta_id = etiquetas.id`
+    const query = `SELECT propias.*, etiquetas.nombre FROM propias INNER JOIN etiquetas ON propias.etiqueta_id = etiquetas.id ORDER BY propias.id DESC`
     const [result] = await pool.query(query)
     res.json(result)
   } else if (req.params[0] === "4") {
-    const query = `SELECT extenos.*, etiquetas.nombre FROM extenos INNER JOIN etiquetas ON extenos.etiqueta_id = etiquetas.id`
+    const query = `SELECT extenos.*, etiquetas.nombre FROM extenos INNER JOIN etiquetas ON extenos.etiqueta_id = etiquetas.id ORDER BY extenos.id DESC`
     const [result] = await pool.query(query)
     console.log(result)
     res.json(result)
@@ -159,14 +159,22 @@ app.get("/crearGastos", async (_, res) => {
   const [etiquetas] = await pool.query(
     'SELECT * FROM etiquetas WHERE tipo = "gasto"'
   )
-  res.render("crearGastos", { etiquetas, error: "" , lastID: (await lastID()) + 1})
+  res.render("crearGastos", {
+    etiquetas,
+    error: "",
+    lastID: (await lastID()) + 1,
+  })
 })
 
 app.get("/creardeuda", async (_, res) => {
   const [etiquetas] = await pool.query(
     'SELECT * FROM etiquetas WHERE tipo = "deuda"'
   )
-  res.render("creadeuda", { etiquetas, error: "", lastID: (await lastID()) + 1 })
+  res.render("creadeuda", {
+    etiquetas,
+    error: "",
+    lastID: (await lastID()) + 1,
+  })
 })
 
 app.post("/creardeuda", async (req, res) => {
@@ -179,9 +187,13 @@ app.post("/creardeuda", async (req, res) => {
 
 app.get("/creardeudaexterna", async (_, res) => {
   const [etiquetas] = await pool.query(
-    'SELECT * FROM etiquetas'
+    'SELECT * FROM etiquetas WHERE tipo = "deuda"'
   )
-  res.render("creadeudaexterna", { etiquetas, error: "", lastID: (await lastID()) + 1 })
+  res.render("creadeudaexterna", {
+    etiquetas,
+    error: "",
+    lastID: (await lastID()) + 1,
+  })
 })
 
 app.post("/creardeudaexterna", async (req, res) => {
@@ -240,9 +252,7 @@ app.get("/visualizar", async (req, res) => {
 
 app.post("/crearGastos", async (req, res) => {
   const data = req.body
-  if (data.fecha === "") {
-    delete data.fecha
-  }
+  data.fecha ? "" : delete data.fecha
   delete data.action
   await pool.query("INSERT INTO gastos SET ?", data)
   res.redirect("gastos")
@@ -250,9 +260,7 @@ app.post("/crearGastos", async (req, res) => {
 
 app.post("/crearingresos", async (req, res) => {
   const data = req.body
-  if (data.fecha === "") {
-    delete data.fecha
-  }
+  data.fecha ? "" : delete data.fecha
   delete data.action
   await pool.query("INSERT INTO ingresos SET ?", data)
   if (req.body.action === "Guardar y continuar") {
