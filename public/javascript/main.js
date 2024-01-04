@@ -63,6 +63,7 @@ addtag.addEventListener('click', e => {
   })
     .then(response => response.json())
     .then(data => {
+      
       console.log('Success:', data);
     })
     .catch((error) => {
@@ -92,6 +93,7 @@ formnewingreso.addEventListener('submit', e => {
     })
     .then(response => {
       e.target.reset();
+      mostrarPopup('Nuevo Ingreso Guardado con Exito');
       if (response.headers.get("Content-Type").includes("application/json")) {
         return response.json();
       } else {
@@ -108,3 +110,13 @@ formnewingreso.addEventListener('submit', e => {
     e.target.submit();
   }
 }); 
+
+let mostrarPopup = (texto)=> {
+  var popup = document.getElementById("miPopup");
+  popup.textContent = texto; // Mejor usar textContent para asignar texto
+  popup.classList.add("visible");
+
+  setTimeout(function () {
+    popup.classList.remove("visible");
+  }, 4000); // Ajusta el tiempo según sea necesario
+}

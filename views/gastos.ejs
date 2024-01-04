@@ -39,10 +39,7 @@
         data.then(res => {
           sorted(table, res, '', false, false)
         })
-        // refactorizando a una funcion
-        // la funcion recibe una tabla HTML, un objeto, una propiedad por la cual
-        //  se va a ordenar y un booleano que indica si se ordena
-
+   
         const sorted = (table, obj, sortBy, sort, will = true) => {
           table.innerHTML = ''
           if (will){

@@ -6,13 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="styles/style.css" />
   <link rel="stylesheet" href="styles/header.css" />
-  <link rel="stylesheet" href="styles/Visualizar.css" />
+  <link rel="stylesheet" href="styles/visualizar.css?<%= Math.random() %>" />
   <link rel="stylesheet" href="styles/resumen.css?<%= Math.random() %>" />
 
   <title>Capital Wise</title>
 </head>
 
 <body>
+  <div id="miPopup" class="popup">
+    <p>Mensaje del popup</p>
+</div>
+
   <%- include('header.ejs') %>
   <%- include('resumen.ejs') %>
     <section class="clients-container">
@@ -20,23 +24,93 @@
         <h1 class="clients-container__title">Bienvenido a la pestaña de visualizacion</h1>
       </span>
 
-      <ul>
-        <li>
-          <canvas id="myChart"></canvas>
-        </li>
-        <li id="chart1">
-          <canvas id="myChart1"></canvas>
-        </li>
-        <li>
-          <canvas id="myChart2"></canvas>
-        </li>
 
-      </ul>
+      <div class="resumen1">
+        <div class="resumen__container1">
+
+
+          <div class="resumen__container__item">
+            <div class="resumen__container__item_header">
+              <h3 class="resumen__container__item__title">Gastos</h3>
+              <p>CLICK ME</p>
+            </div>
+            <p class="resumen__container__item__number red" id="balanceg">
+              <%= debito.reduce((a, b) => a + (b.debito), 0) %>$
+            </p>
+
+            <div class="resumen__container__item__content" style="display: none;">
+              <div class="form__container">
+
+                <form action="/crearGastosV" method="POST" class="new-client new-client1">
+                    <textarea class="new-client__input" name="descripcion" id="product_description" required placeholder="Descripción"></textarea>
+                    <input class="new-client__input" type="number" name="debito" id="cost" placeholder="Credito" />
+                    <input class="new-client__input" type="date" max="<%= new Date().toISOString().slice(0,10) %>" name="fecha" id="fecha" />
+                    <div class="new-client__buttons">
+                      <a href="gastos"><input class="new-client__button" type="button" value="Ir a pendientes" /></a>
+                      <input class="new-client__button" type="submit" name="action" id="ingresobutton__continuar" value="Guardar nuevo gasto" />
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="resumen__container__item">
+            <div class="resumen__container__item_header">
+              <h3 class="resumen__container__item__title">Ingreso</h3>
+              <p>CLICK ME</p>
+            </div>
+            <p class="resumen__container__item__number" id="balancei">
+              <%= credito.reduce((a, b) => a + b.credito, 0) %>$
+
+            </p>
+
+            <div class="resumen__container__item__content" style="display: none;">
+              <div class="form__container">
+
+                <form action="/crearingresosI" method="POST" class="new-client new-client2">
+                    <textarea class="new-client__input" name="descripcion" id="product_description" required placeholder="Descripción"></textarea>
+                    <input class="new-client__input" type="number" name="credito" id="cost" placeholder="Credito" />
+                    <input class="new-client__input" type="date" max="<%= new Date().toISOString().slice(0,10) %>" name="fecha" id="fecha" />
+                    <div class="new-client__buttons">
+                      <a href="ingresos"><input class="new-client__button" type="button" value="Ir a pendientes" /></a>
+                      <input class="new-client__button" type="submit" name="action" id="ingresobutton__continuar" value="Guardar nuevo ingreso" />
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="resumen__container__item">
+            <div class="resumen__container__item_header">
+              <h3 class="resumen__container__item__title">Pendientes</h3>
+              <p>CLICK ME</p>
+            </div>
+            <p class="resumen__container__item__number" id="balanced">
+              <%= ingresospendientes.length> 1 ? ingresospendientes.reduce((a, b) => a+ b.ingresospendientes, 0): ingresospendientes[0].ingresospendientes %>$
+            </p>
+
+            <div class="resumen__container__item__content" style="display: none;">
+              <div class="form__container">
+
+                <form action="/creardeudaexternaD" method="POST" class="new-client new-client3">
+                    <textarea class="new-client__input" name="descripcion" id="product_description" required placeholder="Descripción"></textarea>
+                    <input class="new-client__input" type="number" name="credito" id="cost" placeholder="Credito" />
+                    <input class="new-client__input" type="date" max="<%= new Date().toISOString().slice(0,10) %>" name="fecha" id="fecha" />
+                  <div class="new-client__buttons">
+                    <a href="externos"><input class="new-client__button" type="button" value="Ir a pendientes" /></a>
+                    <input class="new-client__button" type="submit" name="action" id="ingresobutton__continuar" value="Guardar deuda pendiente" />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <script src="./javascript/graficas.js"></script>
     <script src="./javascript/global.js"></script>
+    <script src="./javascript/visualizar.js"></script>
 
   </body>
 

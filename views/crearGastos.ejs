@@ -11,6 +11,12 @@
 </head>
 
 <body>
+  <div id="miPopup" class="popup">
+    <p>Mensaje del popup</p>
+</div>
+
+
+
   <%- include('header.ejs') %>
     <main>
       <h1 class="title">Agregar un nuevo gasto</h1>
@@ -20,13 +26,12 @@
             <%= error %>
           </p>
           <select name="etiqueta_id" class="select" id="ingresoselect" required>
-            <option value="" class="default-option">Etiqueta</option>
+            <option value="1" class="default-option">desactivado</option>
             <% etiquetas.forEach(e=> { %>
               <option value="<%= e.id %>">
                 <%= e.nombre %>
               </option>
               <% }) %>
-                <option value="custom">Agregar nueva etiqueta...</option>
           </select>
           <div class="newtag-input-container">
             <input type="text" id="custom-tag" style="display:none;"
@@ -39,12 +44,12 @@
           <input class="new-client__input" type="date" max="<%= new Date().toISOString().slice(0,10) %>" name="fecha" id="fecha" />
           <div class="new-client__buttons">
             <input class="new-client__button" type="submit" name="action" value="Agregar" />
-            <input class="new-client__button" type="submit" name="action" value="Guardar y continuar" />
+            <input class="new-client__button" type="submit" name="action" id="ingresobutton__continuar" value="Guardar y continuar" />
           </div>
       </form>
     </main>
 
-    <script src="./javascript/main.js"></script>
+    <script src="./javascript/gastos.js"></script>
 </body>
 
 </html>

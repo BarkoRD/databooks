@@ -11,6 +11,12 @@
 </head>
 
 <body>
+  
+  <div id="miPopup" class="popup">
+    <p>Mensaje del popup</p>
+  </div>
+
+
   <%- include('header.ejs') %>
     <main>
       <h1 class="title">Agregar nueva deuda</h1>
@@ -28,22 +34,24 @@
               <% }) %>
           </select>
           <div class="newtag-input-container">
-            <input type="text" id="custom-tag" style="display:none;"
-              placeholder="Escribe tu etiqueta">
-              <button  value="<%= lastID %>" type="button" id="save-continue-btn" style="display:none;">Guardar y continuar</button>
-            </div>
+            <input type="text" id="custom-tag" style="display:none;" placeholder="Escribe tu etiqueta">
+            <button value="<%= lastID %>" type="button" id="save-continue-btn" style="display:none;">Guardar y
+              continuar</button>
+          </div>
           <input class="new-client__input" type="text" name="descripcion" id="product_description" required
-          placeholder="Descripción" />
+            placeholder="Descripción" />
           <input class="new-client__input" type="number" name="credito" id="cost" placeholder="Credito" />
-          <input class="new-client__input" type="date" max="<%= new Date().toISOString().slice(0,10) %>" name="fecha" id="fecha" /> <!-- fecha del primer pago -->
+          <input class="new-client__input" type="date" max="<%= new Date().toISOString().slice(0,10) %>" name="fecha"
+            id="fecha" /> <!-- fecha del primer pago -->
           <div class="new-client__buttons">
             <input class="new-client__button" type="submit" name="action" value="Agregar" />
-            <input class="new-client__button" type="submit" name="action" value="Guardar y continuar" />
+            <input class="new-client__button" type="submit" name="action" id="ingresobutton__continuar"
+              value="Guardar y continuar" />
           </div>
       </form>
     </main>
 
-    <script src="./javascript/main.js"></script>
+    <script src="./javascript/creardeuda.js"></script>
 </body>
 
 </html>

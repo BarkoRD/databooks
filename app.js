@@ -44,7 +44,8 @@ const getBalance = async () => {
   )
   return balance
 }
-let balance = await getBalance()
+
+
 const lastID = async () => {
   const [[{ lastID }]] = await pool.query(
     "SELECT MAX(id) AS lastID FROM etiquetas"
@@ -53,12 +54,13 @@ const lastID = async () => {
 }
 // hacer que getBalance se ejecute en cada solicitud get
 
-app.use((_, __, next) => {
-  getBalance().then((result) => {
-    balance = result
-    next()
-  })
-})
+// app.use((_, __, next) => {
+
+//   getBalance().then((result) => {
+//     balance = result
+//     next()
+//   })
+// })
 
 app.get(/^\/(index)?$/, (_, res) => {
   res.redirect("visualizar")
@@ -76,6 +78,7 @@ app.get("/crearIngresos", async (_, res) => {
 })
 
 app.get("/ingresos", async (_, res) => {
+  let balance = await getBalance()
   const query = `SELECT * FROM ingresos INNER JOIN etiquetas ON ingresos.etiqueta_id = etiquetas.id ORDER BY ingresos.id DESC`
   const [result] = await pool.query(query)
   res.render("ingresos", {
@@ -88,6 +91,8 @@ app.get("/ingresos", async (_, res) => {
 })
 
 app.get("/gastos", async (_, res) => {
+  let balance = await getBalance()
+
   res.render("gastos", {
     credito: balance[0],
     debito: balance[1],
@@ -117,6 +122,8 @@ app.get(/^\/tabla(1|2|3|4)$/, async (req, res) => {
   }
 })
 app.get("/propios", async (_, res) => {
+  let balance = await getBalance()
+
   const [tableitems] =
     await pool.query(`SELECT propias.*, etiquetas.nombre FROM propias 
   INNER JOIN etiquetas
@@ -132,6 +139,8 @@ app.get("/propios", async (_, res) => {
 })
 
 app.get("/externos", async (_, res) => {
+  let balance = await getBalance()
+
   const [tableitems] = await pool.query(
     `SELECT * FROM extenos INNER JOIN etiquetas ON extenos.etiqueta_id = etiquetas.id`
   )
@@ -145,6 +154,8 @@ app.get("/externos", async (_, res) => {
 })
 
 app.get("/notificaciones", async (_, res) => {
+  let balance = await getBalance()
+
   const notificaciones = [{ hola: "hola" }]
   res.render("notificaciones", {
     notificaciones,
@@ -241,6 +252,7 @@ app.get("/visualizar", async (req, res) => {
   // const [[{ ingresospendientes }]] = await pool.query('SELECT SUM(credito) AS ingresospendientes FROM extenos')
   // balance.ingresospendientes = ingresospendientes ? ingresospendientes : 0;
   // console.log(balance.ingresospendientes)
+  let balance = await getBalance()
 
   res.render("visualizar", {
     credito: balance[0],
@@ -251,12 +263,53 @@ app.get("/visualizar", async (req, res) => {
 })
 
 app.post("/crearGastos", async (req, res) => {
+  let etiqueta_id = 1
   const data = req.body
   data.fecha ? "" : delete data.fecha
   delete data.action
+  data.etiqueta_id = etiqueta_id
+  console.log(data)
   await pool.query("INSERT INTO gastos SET ?", data)
   res.redirect("gastos")
 })
+
+app.post("/crearGastosV", async (req, res) => {
+  let etiqueta_id = 1;
+  const data = req.body;
+  data.fecha ? "" : delete data.fecha;
+  delete data.action;
+  data.etiqueta_id = etiqueta_id;
+  console.log(data);
+
+  await pool.query("INSERT INTO gastos SET ?", data);
+  res.json({ success: true, mensaje: data.debito });
+});
+
+app.post("/crearingresosI", async (req, res) => {
+  let etiqueta_id = 1;
+  const data = req.body;
+  data.fecha ? "" : delete data.fecha;
+  delete data.action;
+  data.etiqueta_id = etiqueta_id;
+  console.log(data);
+
+  await pool.query("INSERT INTO ingresos SET ?", data);
+  res.json({ success: true, mensaje: data.credito });
+});
+
+app.post("/creardeudaexternad", async (req, res) => {
+  let etiqueta_id = 1;
+  const data = req.body;
+  data.fecha ? "" : delete data.fecha;
+  delete data.action;
+  data.etiqueta_id = etiqueta_id;
+  console.log(data);
+
+  await pool.query("INSERT INTO extenos SET ?", data);
+  res.json({ success: true, mensaje: data.credito });
+});
+
+
 
 app.post("/crearingresos", async (req, res) => {
   const data = req.body
